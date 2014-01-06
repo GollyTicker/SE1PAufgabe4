@@ -51,7 +51,7 @@ public class ReservierungsKomponenteTest {
 
 		matze = gastService.sucheGastNachName("matthias");
 		kai = gastService.sucheGastNachName("kai");
-
+		
 		assertFalse(matze.istStammkunde());
 		assertFalse(kai.istStammkunde());
 
