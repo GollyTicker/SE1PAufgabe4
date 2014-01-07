@@ -55,7 +55,7 @@ public class Reservierungverwalter {
 	public void bucheZusatzleistung(Integer reservierungNr,
 			Integer zusatzleistungNr) {
 		
-		String query = "insert into z2r values(default," + reservierungNr + ","
+		String query = "insert into umfasst values(default," + reservierungNr + ","
 				+ zusatzleistungNr + ")";
 		persServ.create(query);
 	};
@@ -67,13 +67,10 @@ public class Reservierungverwalter {
 		String leistung = "";
 		try {
 			while (rs.next()) {
-				
 				nr = (rs.getInt("nr"));
 				leistung = rs.getString("Leistungsart");
-
 			}
 		} catch (Exception e) {
-			
 			e.printStackTrace();
 		}
 		ZusatzleistungTyp z = zusatzleistung(nr, leistung);

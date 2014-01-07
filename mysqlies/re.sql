@@ -31,8 +31,7 @@ create table Zusatzleistung(
 	primary key (Nr)
 );
 
-
-create table z2r(
+create table umfasst(
 	id int(2) not null AUTO_INCREMENT,
 	r_id int(2),
 	foreign key (r_id) references reservierung(nr),

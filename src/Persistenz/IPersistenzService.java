@@ -10,5 +10,5 @@ public interface IPersistenzService {
 
 	ResultSet readPlainSql(String query);
 
-	void writePlainSql(String query);
+	void updateByRawQuery(String query);
 }

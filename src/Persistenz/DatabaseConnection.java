@@ -37,7 +37,7 @@ public class DatabaseConnection implements IPersistenzService {
 		return null;
 	}
 
-	public void writePlainSql(String query) {
+	public void updateByRawQuery(String query) {
 		try {
 			PreparedStatement preparedStatement = connect
 					.prepareStatement(query);
