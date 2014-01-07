@@ -46,16 +46,16 @@ public class Gastverwalter {
 
 	public void markiereGastStammkundeFallsBedingungenErfuellt(int gastNr) {
 
-		String reservierungenQuery = "select count(distinct res.nr) as reservierung"
-				+ " from ( select gast_id, nr from reservierung where gast_id="
+		String reservierungenQuery = "select count(distinct res.Nr) as reservierung"
+				+ " from ( select gastID, Nr from reservierung where gastID="
 				+ gastNr + " ) res;";
 
-		String reservierungenZusatzQuery = "select count(distinct res.nr) as zusatzreservierung "
-				+ "from (select nr from umfasst,"
-				+ "reservierung r where gast_id="
-				+ gastNr + " and umfasst.r_id=r.nr group by nr) res;";
+		String reservierungenZusatzQuery = "select count(distinct res.Nr) as zusatzreservierung "
+				+ "from (select Nr from umfasst,"
+				+ "reservierung r where gastID="
+				+ gastNr + " and umfasst.rID=r.Nr group by Nr) res;";
 
-		String queryIfStammkunde = "update gast set IstStammkunde = true where nr = "
+		String queryIfStammkunde = "update gast set IstStammkunde = true where Nr = "
 				+ gastNr + ";";
 
 		ResultSet rs = persServ.readPlainSql(reservierungenQuery);

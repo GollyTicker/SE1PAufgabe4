@@ -3,7 +3,7 @@
 -- CMD mit Adminrechten ausführen und "startmsql" "tun".
 -- beenden des Servers mit "stopmysql".
 
-drop table if exists z2r;
+drop table if exists umfasst;
 drop table if exists Reservierung;
 drop table if exists Zusatzleistung;
 drop table if exists Gast;
@@ -18,11 +18,11 @@ create table Gast(
 );
 
 create table Reservierung(
-	nr int(2) not null AUTO_INCREMENT,
-	primary key(nr),
+	Nr int(2) not null AUTO_INCREMENT,
+	primary key(Nr),
 	ZimmerNr int(2),
-	gast_id int(2),
-	foreign key (gast_id) references gast(nr)
+	gastID int(2),
+	foreign key (gastID) references gast(Nr)
 );
 
 create table Zusatzleistung(
@@ -33,10 +33,10 @@ create table Zusatzleistung(
 
 create table umfasst(
 	id int(2) not null AUTO_INCREMENT,
-	r_id int(2),
-	foreign key (r_id) references reservierung(nr),
-	z_id int(2),
-	foreign key (z_id) references zusatzleistung(nr),
+	rID int(2),
+	foreign key (rID) references reservierung(Nr),
+	zlID int(2),
+	foreign key (zlID) references zusatzleistung(Nr),
 	primary key(id)
 )
 

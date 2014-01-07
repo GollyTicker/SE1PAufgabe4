@@ -36,7 +36,7 @@ public class Reservierungverwalter {
 
 	public ReservierungTyp sucheReservierung(Integer gastNr, Integer zimmerNr) {
 		ResultSet rs = persServ.readByStrAttribute(gastNr.toString(),
-				"Reservierung", "gast_id");
+				"Reservierung", "gastID");
 		Integer nr = 0;
 		Integer zimmernr = 0;
 		try {
@@ -80,13 +80,13 @@ public class Reservierungverwalter {
 
 	public Integer sucheGastNrNachReservierungNr(Integer reservierungNr) {
 		
-		String searchQuery = "select gast_id from reservierung where nr="
+		String searchQuery = "select gastID from reservierung where Nr="
 				+ reservierungNr;
 		ResultSet rs = persServ.readPlainSql(searchQuery);
 		Integer gastnr = -1;
 		try {
 			while (rs.next()) {
-				gastnr = rs.getInt("gast_id");
+				gastnr = rs.getInt("gastID");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

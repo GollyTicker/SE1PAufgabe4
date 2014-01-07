@@ -7,27 +7,26 @@ import Services.IGastServicesFuerReservierung;
 public class GastverwaltungKomponente implements IGastServices,
 		IGastServicesFuerReservierung {
 
-	private Gastverwalter gastVerwalter = null;
-	private GastAnwendungsfall gastVerwaltungAnwendungsfall = null;
+	private Gastverwalter gVerw = null;
+	private GastAnwendungsfall gastAnwf = null;
 
 	public GastverwaltungKomponente(IPersistenzService persistenceManager) {
-		gastVerwalter = new Gastverwalter(persistenceManager);
-		gastVerwaltungAnwendungsfall = new GastAnwendungsfall(
-				gastVerwalter);
+		gVerw = new Gastverwalter(persistenceManager);
+		gastAnwf = new GastAnwendungsfall(gVerw);
 	}
 
 	@Override
 	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email) {
-		return this.gastVerwaltungAnwendungsfall.erzeugeGast(nr, name, email);
+		return this.gastAnwf.erzeugeGast(nr, name, email);
 	}
 
 	@Override
 	public GastTyp sucheGastNachName(String name) {
-		return this.gastVerwaltungAnwendungsfall.sucheGastNachName(name);
+		return this.gastAnwf.sucheGastNachName(name);
 	}
 
 	@Override
 	public void markiereGastAlsStammkunden(Integer nr) {
-		this.gastVerwaltungAnwendungsfall.markiereGastAlsStammkunden(nr);
+		this.gastAnwf.markiereGastAlsStammkunden(nr);
 	}
 }
