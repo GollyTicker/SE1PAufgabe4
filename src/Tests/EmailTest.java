@@ -4,17 +4,17 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import static Gastkomponente.EmailTyp.email;
 import Gastkomponente.EmailTyp;
 
 public class EmailTest {
 
 	@Test
 	public void testEmail() {
-		EmailTyp email = EmailTyp.email("matthias", "gmail", "com");
-		assertEquals("matthias", email.name());
-		assertEquals("gmail", email.server());
+		EmailTyp email = email("swaneet", "hotmail", "com");
+		assertEquals("swaneet", email.name());
+		assertEquals("hotmail", email.server());
 		assertEquals("com", email.country());
-		assertEquals("matthias@gmail.com", email.toString());
+		assertEquals("swaneet@hotmail.com", email.toString());
 	}
-
 }

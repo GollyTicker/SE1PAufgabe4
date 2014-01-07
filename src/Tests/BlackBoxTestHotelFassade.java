@@ -2,9 +2,7 @@ package Tests;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import Anwendungkernfassade.HotelFassade;
 import Anwendungkernfassade.IHotelFassade;
@@ -22,13 +20,9 @@ public class BlackBoxTestHotelFassade {
 	@Before
 	public void setUp() {
 		this.hotelFassade = new HotelFassade();
-
 		hotelFassade.erzeugeGast(1, "Steffen", email("st", "hw", "de"));
-
 		hotelFassade.erzeugeGast(2, "Swaneet", email("sw", "hw", "de"));
-
 		hotelFassade.erzeugeGast(3, "Flasche", email("ab", "cd", "de"));
-
 		zNr = 0;
 		wlan = hotelFassade.erzeugeZusatzleistung("WLAN");
 	}
@@ -40,26 +34,27 @@ public class BlackBoxTestHotelFassade {
 		GastTyp swaneet = hotelFassade.sucheGastNachName("Swaneet");
 		GastTyp flasche = hotelFassade.sucheGastNachName("Flasche");
 
-		assertTrue(hotelFassade.sucheGastNachName("nichtDrinnen!!") == null);
+		assertNull(hotelFassade.sucheGastNachName("can't Touch Me"));
 		assertNotNull(steffen);
 		assertNotNull(swaneet);
 		assertNotNull(flasche);
 		assertFalse(steffen.istStammkunde());
 		assertFalse(steffen.istStammkunde());
 		assertFalse(steffen.istStammkunde());
-
+		
+		// steffen macht nicht genügend reservierungen mit zusatzleistungen
 		for (int i = 1; i <= 2; i++) {
 			ReservierungTyp res = hotelFassade.reserviereZimmer(
 					steffen.nr(), zimmerNr());
 			hotelFassade.bucheZusatzleistung(res.nr(), wlan.nr());
 		}
-
+		// swaneet macht 3 reservierungen mit zusatzleistungen
 		for (int i = 1; i <= 3; i++) {
 			ReservierungTyp res = hotelFassade.reserviereZimmer(
 					swaneet.nr(), zimmerNr());
 			hotelFassade.bucheZusatzleistung(res.nr(), wlan.nr());
 		}
-
+		// flasche macht eine reservierung zu wenig um stammkunde zu sein
 		for (int i = 1; i <= 5; i++) {
 			hotelFassade.reserviereZimmer(flasche.nr(), zimmerNr());
 		}
@@ -72,7 +67,7 @@ public class BlackBoxTestHotelFassade {
 		assertTrue(swaneet.istStammkunde());
 		assertFalse(flasche.istStammkunde());
 		
-
+		// jetzt hat flash genügend reservierungen
 		hotelFassade.reserviereZimmer(flasche.nr(), zimmerNr());
 		flasche = hotelFassade.sucheGastNachName("Flasche");
 		assertTrue(flasche.istStammkunde());
@@ -82,7 +77,8 @@ public class BlackBoxTestHotelFassade {
 	public void tearDown() {
 		hotelFassade = null;
 	}
-
+	
+	// gibt immer eine neue zimmerNr zurück
 	private int zimmerNr() {
 		zNr += 1;
 		return zNr;
