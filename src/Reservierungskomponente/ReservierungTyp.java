@@ -2,15 +2,19 @@ package Reservierungskomponente;
 
 import java.util.List;
 
-public class Reservierung {
+public class ReservierungTyp {
 
 	private Integer nr;
 	private Integer zimmerNr;
-	private List<Zusatzleistung> zLeistungen;
+	private List<ZusatzleistungTyp> zLeistungen;
 
-	public Reservierung(Integer nr, Integer zimmerNr) {
+	private ReservierungTyp(Integer nr, Integer zimmerNr) {
 		this.nr = nr;
 		this.zimmerNr = zimmerNr;
+	}
+	
+	public static ReservierungTyp reservierung(Integer nr, Integer zimmerNr) {
+		return new ReservierungTyp(nr, zimmerNr);
 	}
 
 	@Override
@@ -34,12 +38,8 @@ public class Reservierung {
 		this.zimmerNr = zimmerNr;
 	}
 
-	public List<Zusatzleistung> getzLeistungen() {
+	public List<ZusatzleistungTyp> getzLeistungen() {
 		return zLeistungen;
-	}
-
-	public boolean addLeistungen(Zusatzleistung leistung) {
-		return this.zLeistungen.add(leistung);
 	}
 
 	@Override
@@ -52,9 +52,9 @@ public class Reservierung {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Reservierung))
+		if (!(obj instanceof ReservierungTyp))
 			return false;
-		Reservierung r = (Reservierung) obj;
+		ReservierungTyp r = (ReservierungTyp) obj;
 		return r.getNr().compareTo(this.getNr()) == 0
 				&& r.getZimmerNr().compareTo(this.getZimmerNr()) == 0;
 	}

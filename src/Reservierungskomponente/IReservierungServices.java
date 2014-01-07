@@ -1,12 +1,12 @@
 package Reservierungskomponente;
 
-import Reservierungskomponente.Zusatzleistung;
+import Reservierungskomponente.ZusatzleistungTyp;
 
 public interface IReservierungServices {
 
-	Zusatzleistung erzeugeZusatzleistung(String name);
+	ZusatzleistungTyp erzeugeZusatzleistung(String name);
 
-	Reservierung reserviereZimmer(Integer gastNr, Integer zimmerNr);
+	ReservierungTyp reserviereZimmer(Integer gastNr, Integer zimmerNr);
 
 	void bucheZusatzleistung(Integer reservierungNr, Integer zusatzleistungNr);
 	

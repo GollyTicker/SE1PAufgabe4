@@ -17,16 +17,16 @@ public class ReservierungverwaltungAnwendungsfall implements
 	}
 
 	@Override
-	public Zusatzleistung erzeugeZusatzleistung(String name) {
+	public ZusatzleistungTyp erzeugeZusatzleistung(String name) {
 		Precondition.requires(name != null && name.length() > 0);
 		return this.reservierungverwalter.erzeugeZusatzleistung(name);
 	}
 
 	@Override
-	public Reservierung reserviereZimmer(Integer gastNr, Integer zimmerNr) {
+	public ReservierungTyp reserviereZimmer(Integer gastNr, Integer zimmerNr) {
 		Precondition.requires(gastNr != null && gastNr > 0);
 		Precondition.requires(zimmerNr != null);
-		Reservierung result = reservierungverwalter.reserviereZimmer(gastNr, zimmerNr);
+		ReservierungTyp result = reservierungverwalter.reserviereZimmer(gastNr, zimmerNr);
 		gastServicesFuerReservierung.markiereGastAlsStammkunden(gastNr);
 		return result;
 	}

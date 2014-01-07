@@ -2,6 +2,8 @@ package Reservierungskomponente;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import static Reservierungskomponente.ZusatzleistungTyp.zusatzleistung;
+import static Reservierungskomponente.ReservierungTyp.reservierung;
 
 import Persistenz.IPersistenzService;
 
@@ -13,25 +15,25 @@ public class Reservierungverwalter {
 		this.persistenzService = persistenzService;
 	}
 
-	public Zusatzleistung erzeugeZusatzleistung(String name) {
+	public ZusatzleistungTyp erzeugeZusatzleistung(String name) {
 
 		String query = "insert into Zusatzleistung values(default,'" + name
 				+ "')";
 		persistenzService.create(query);
-		Zusatzleistung z = sucheZusatzleistung(name);
+		ZusatzleistungTyp z = sucheZusatzleistung(name);
 		return z;
 
 	};
 
-	public Reservierung reserviereZimmer(Integer gastNr, Integer zimmerNr) {
+	public ReservierungTyp reserviereZimmer(Integer gastNr, Integer zimmerNr) {
 		String query = "insert into Reservierung values(default," + zimmerNr
 				+ "," + gastNr + ");";
 		persistenzService.create(query);
-		Reservierung r = sucheReservierung(gastNr, zimmerNr);
+		ReservierungTyp r = sucheReservierung(gastNr, zimmerNr);
 		return r;
 	};
 
-	public Reservierung sucheReservierung(Integer gastNr, Integer zimmerNr) {
+	public ReservierungTyp sucheReservierung(Integer gastNr, Integer zimmerNr) {
 
 		ResultSet rs = persistenzService.read(gastNr.toString(),
 				"Reservierung", "gast_id");
@@ -48,7 +50,7 @@ public class Reservierungverwalter {
 			e.printStackTrace();
 		}
 
-		Reservierung r = new Reservierung(nr, zimmernr);
+		ReservierungTyp r = reservierung(nr, zimmernr);
 		System.out.println(r);
 		return r;
 	}
@@ -61,7 +63,7 @@ public class Reservierungverwalter {
 		persistenzService.create(query);
 	};
 
-	public Zusatzleistung sucheZusatzleistung(String name) {
+	public ZusatzleistungTyp sucheZusatzleistung(String name) {
 
 		ResultSet rs = persistenzService.read(name, "zusatzleistung",
 				"LeistungsArt");
@@ -79,7 +81,7 @@ public class Reservierungverwalter {
 			e.printStackTrace();
 		}
 
-		Zusatzleistung z = Zusatzleistung.zusatzleistung(nr, leistung);
+		ZusatzleistungTyp z = zusatzleistung(nr, leistung);
 		System.out.println(z);
 		return z;
 

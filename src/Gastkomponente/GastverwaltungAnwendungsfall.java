@@ -13,7 +13,7 @@ public class GastverwaltungAnwendungsfall implements IGastServices,
 	}
 
 	@Override
-	public Gast erzeugeGast(Integer nr, String name, EmailTyp email) {
+	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email) {
 		Precondition.requires(email != null);
 		Precondition.requires(name != null && name.length() <= 30
 				&& name.length() > 0);
@@ -22,7 +22,7 @@ public class GastverwaltungAnwendungsfall implements IGastServices,
 	}
 
 	@Override
-	public Gast sucheGastNachName(String name) {
+	public GastTyp sucheGastNachName(String name) {
 		Precondition.requires(name != null && name.length() > 0);
 		return this.gastverwalter.sucheGastNachName(name);
 	}

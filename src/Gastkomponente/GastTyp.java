@@ -2,18 +2,22 @@ package Gastkomponente;
 
 import Typen.EmailTyp;
 
-public class Gast {
+public class GastTyp {
 
 	private Integer nr;
 	private String name;
 	private EmailTyp email;
-	private Boolean istStammkunde = false;
+	private Boolean istStammkunde;
 
-	public Gast(Integer nr, String name, EmailTyp email, Boolean istStammkunde) {
+	private GastTyp(Integer nr, String name, EmailTyp email, Boolean istStammkunde) {
 		this.nr = nr;
 		this.name = name;
 		this.email = email;
 		this.istStammkunde = istStammkunde;
+	}
+	
+	public static GastTyp gast(Integer nr, String name, EmailTyp email, Boolean istStammkunde) {
+		return new GastTyp(nr, name, email, istStammkunde);
 	}
 
 	@Override
@@ -50,10 +54,6 @@ public class Gast {
 		return istStammkunde;
 	}
 
-	public void setStammkunde(Boolean istStammkunde) {
-		this.istStammkunde = istStammkunde;
-	}
-
 	@Override
 	public int hashCode() {
 		long longBits = Double.doubleToLongBits(Double.valueOf(this.nr));
@@ -64,9 +64,9 @@ public class Gast {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Gast))
+		if (!(obj instanceof GastTyp))
 			return false;
-		Gast g = (Gast) obj;
+		GastTyp g = (GastTyp) obj;
 		return g.getNr().compareTo(this.getNr()) == 0;
 	}
 

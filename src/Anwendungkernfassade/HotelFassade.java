@@ -1,15 +1,15 @@
 package Anwendungkernfassade;
 
-import Gastkomponente.Gast;
+import Gastkomponente.GastTyp;
 import Gastkomponente.GastverwaltungKomponente;
 import Gastkomponente.IGastServices;
 import Gastkomponente.IGastServicesFuerReservierung;
 import Persistenz.DatabaseConnection;
 import Persistenz.IPersistenzService;
 import Reservierungskomponente.IReservierungServices;
-import Reservierungskomponente.Reservierung;
+import Reservierungskomponente.ReservierungTyp;
 import Reservierungskomponente.ReservierungverwaltungKomponente;
-import Reservierungskomponente.Zusatzleistung;
+import Reservierungskomponente.ZusatzleistungTyp;
 import Typen.EmailTyp;
 
 public class HotelFassade implements IHotelFassade{
@@ -28,11 +28,11 @@ public class HotelFassade implements IHotelFassade{
 				persistenceService, this.gastServiceFuerReservierung);
 	}
 
-	public Zusatzleistung erzeugeZusatzleistung(String name) {
+	public ZusatzleistungTyp erzeugeZusatzleistung(String name) {
 		return reservierungService.erzeugeZusatzleistung(name);
 	}
 
-	public Reservierung reserviereZimmer(Integer gastNr, Integer zimmerNr) {
+	public ReservierungTyp reserviereZimmer(Integer gastNr, Integer zimmerNr) {
 		gastServiceFuerReservierung.markiereGastAlsStammkunden(gastNr);
 		return reservierungService.reserviereZimmer(gastNr, zimmerNr);
 	}
@@ -46,11 +46,11 @@ public class HotelFassade implements IHotelFassade{
 				zusatzleistungNr);
 	}
 
-	public Gast erzeugeGast(Integer nr, String name, EmailTyp email) {
+	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email) {
 		return gastService.erzeugeGast(nr, name, email);
 	}
 
-	public Gast sucheGastNachName(String name) {
+	public GastTyp sucheGastNachName(String name) {
 		return gastService.sucheGastNachName(name);
 	}
 

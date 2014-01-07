@@ -17,12 +17,12 @@ public class ReservierungverwaltungKomponente implements IReservierungServices {
 	}
 
 	@Override
-	public Zusatzleistung erzeugeZusatzleistung(String name) {
+	public ZusatzleistungTyp erzeugeZusatzleistung(String name) {
 		return this.resVerwaltungAnwendungsfall.erzeugeZusatzleistung(name);
 	}
 
 	@Override
-	public Reservierung reserviereZimmer(Integer gastNr, Integer zimmerNr) {
+	public ReservierungTyp reserviereZimmer(Integer gastNr, Integer zimmerNr) {
 		return this.resVerwaltungAnwendungsfall.reserviereZimmer(gastNr,
 				zimmerNr);
 	}

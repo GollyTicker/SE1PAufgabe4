@@ -2,6 +2,7 @@ package Gastkomponente;
 
 import java.sql.ResultSet;
 
+import static Gastkomponente.GastTyp.gast;
 import Persistenz.IPersistenzService;
 import Typen.EmailTyp;
 
@@ -13,7 +14,7 @@ public class Gastverwalter {
 		this.persistenzService = persistenzService;
 	}
 
-	public Gast sucheGastNachNr(Integer id) {
+	public GastTyp sucheGastNachNr(Integer id) {
 		// look by the name
 		ResultSet rs = persistenzService.read(String.valueOf(id), "gast",
 				"name");
@@ -33,12 +34,12 @@ public class Gastverwalter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Gast gast = new Gast(nr, name_, emailConvertFromString(email), stamm);
+		GastTyp gast = gast(nr, name_, emailConvertFromString(email), stamm);
 		System.out.println(gast);
 		return gast;
 	}
 
-	public Gast sucheGastNachName(String name) {
+	public GastTyp sucheGastNachName(String name) {
 		// look by the name
 		ResultSet rs = persistenzService.read(name, "gast", "name");
 
@@ -57,12 +58,12 @@ public class Gastverwalter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Gast gast = new Gast(nr, name_, emailConvertFromString(email), stamm);
+		GastTyp gast = gast(nr, name_, emailConvertFromString(email), stamm);
 		System.out.println(gast);
 		return gast;
 	}
 
-	public Gast erzeugeGast(Integer nr, String name, EmailTyp email) {
+	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email) {
 
 		try {
 			String query = "insert into gast values(" + nr + ", '" + name
@@ -70,7 +71,7 @@ public class Gastverwalter {
 			System.out.println(query);
 
 			persistenzService.create(query);
-			Gast gast = sucheGastNachName(name);
+			GastTyp gast = sucheGastNachName(name);
 			return gast;
 		} catch (Exception e) {
 			e.printStackTrace();

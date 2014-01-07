@@ -11,18 +11,18 @@ import org.junit.Test;
 
 import Anwendungkernfassade.HotelFassade;
 import Anwendungkernfassade.IHotelFassade;
-import Gastkomponente.Gast;
-import Reservierungskomponente.Reservierung;
-import Reservierungskomponente.Zusatzleistung;
+import Gastkomponente.GastTyp;
+import Reservierungskomponente.ReservierungTyp;
+import Reservierungskomponente.ZusatzleistungTyp;
 import Typen.EmailTyp;
 
 public class WorkflowIntegrationTest {
 
-	private IHotelFassade buchungsFassade;
+	private IHotelFassade hotelFassade;
 
 	@Before
 	public void setUp() {
-		this.buchungsFassade = new HotelFassade();
+		this.hotelFassade = new HotelFassade();
 		createGuests();
 	}
 
@@ -30,9 +30,9 @@ public class WorkflowIntegrationTest {
 	@Test
 	public void testIntegration() {
 
-		Gast matze = buchungsFassade.sucheGastNachName("matthias");
-		Gast kai = buchungsFassade.sucheGastNachName("kai");
-		Gast tree = buchungsFassade.sucheGastNachName("tree");
+		GastTyp matze = hotelFassade.sucheGastNachName("matthias");
+		GastTyp kai = hotelFassade.sucheGastNachName("kai");
+		GastTyp tree = hotelFassade.sucheGastNachName("tree");
 
 		assertTrue(matze != null);
 		assertTrue(kai != null);
@@ -41,31 +41,31 @@ public class WorkflowIntegrationTest {
 		assertFalse(matze.istStammkunde());
 		assertFalse(matze.istStammkunde());
 
-		Zusatzleistung sauna = buchungsFassade.erzeugeZusatzleistung("Sauna");
-		Zusatzleistung vollpension = buchungsFassade
+		ZusatzleistungTyp sauna = hotelFassade.erzeugeZusatzleistung("Sauna");
+		ZusatzleistungTyp vollpension = hotelFassade
 				.erzeugeZusatzleistung("Vollpension");
-		Zusatzleistung wlan = buchungsFassade.erzeugeZusatzleistung("WLAN");
+		ZusatzleistungTyp wlan = hotelFassade.erzeugeZusatzleistung("WLAN");
 
 		for (int zimmerNr = 1; zimmerNr < 10; zimmerNr++) {
-			Reservierung res = buchungsFassade.reserviereZimmer(matze.getNr(),
+			ReservierungTyp res = hotelFassade.reserviereZimmer(matze.getNr(),
 					zimmerNr);
-			buchungsFassade.bucheZusatzleistung(res.getNr(), sauna.getNr());
-			buchungsFassade.bucheZusatzleistung(res.getNr(),
+			hotelFassade.bucheZusatzleistung(res.getNr(), sauna.getNr());
+			hotelFassade.bucheZusatzleistung(res.getNr(),
 					vollpension.getNr());
-			buchungsFassade.bucheZusatzleistung(res.getNr(), wlan.getNr());
+			hotelFassade.bucheZusatzleistung(res.getNr(), wlan.getNr());
 		}
 
 		for (int zimmerNr = 11; zimmerNr < 15; zimmerNr++) {
-			Reservierung res = buchungsFassade.reserviereZimmer(kai.getNr(),
+			ReservierungTyp res = hotelFassade.reserviereZimmer(kai.getNr(),
 					zimmerNr);
-			buchungsFassade.bucheZusatzleistung(res.getNr(), sauna.getNr());
+			hotelFassade.bucheZusatzleistung(res.getNr(), sauna.getNr());
 		}
 
-		buchungsFassade.reserviereZimmer(tree.getNr(), 20);
+		hotelFassade.reserviereZimmer(tree.getNr(), 20);
 
-		matze = buchungsFassade.sucheGastNachName("matthias");
-		kai = buchungsFassade.sucheGastNachName("kai");
-		tree = buchungsFassade.sucheGastNachName("tree");
+		matze = hotelFassade.sucheGastNachName("matthias");
+		kai = hotelFassade.sucheGastNachName("kai");
+		tree = hotelFassade.sucheGastNachName("tree");
 
 		assertTrue(matze != null);
 		assertTrue(kai != null);
@@ -77,7 +77,7 @@ public class WorkflowIntegrationTest {
 
 	@After
 	public void tearDown() {
-		buchungsFassade = null;
+		hotelFassade = null;
 	}
 
 	private void createGuests() {
@@ -88,7 +88,7 @@ public class WorkflowIntegrationTest {
 			Integer nr = (int) g.get(0);
 			String name = String.valueOf(g.get(1));
 			EmailTyp email = (EmailTyp) g.get(2);
-			buchungsFassade.erzeugeGast(nr, name, email);
+			hotelFassade.erzeugeGast(nr, name, email);
 		}
 	}
 

@@ -6,16 +6,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import Gastkomponente.Gast;
+import Gastkomponente.GastTyp;
 import Gastkomponente.GastverwaltungKomponente;
 import Gastkomponente.IGastServices;
 import Gastkomponente.IGastServicesFuerReservierung;
 import Persistenz.DatabaseConnection;
 import Persistenz.IPersistenzService;
 import Reservierungskomponente.IReservierungServices;
-import Reservierungskomponente.Reservierung;
+import Reservierungskomponente.ReservierungTyp;
 import Reservierungskomponente.ReservierungverwaltungKomponente;
-import Reservierungskomponente.Zusatzleistung;
+import Reservierungskomponente.ZusatzleistungTyp;
 import Typen.EmailTyp;
 
 public class ReservierungsKomponenteTest {
@@ -24,8 +24,8 @@ public class ReservierungsKomponenteTest {
 	private IGastServices gastService;
 	private IReservierungServices reservierungService;
 	private IGastServicesFuerReservierung gastServiceFuerReservierung;
-	private Gast matze, kai;
-	private Zusatzleistung sauna, vollpension, wlan;
+	private GastTyp matze, kai;
+	private ZusatzleistungTyp sauna, vollpension, wlan;
 
 	@Before
 	public void setUp() {
@@ -57,7 +57,7 @@ public class ReservierungsKomponenteTest {
 		assertFalse(kai.istStammkunde());
 
 		for (int i = 1; i < 10; i++) {
-			Reservierung res = reservierungService.reserviereZimmer(
+			ReservierungTyp res = reservierungService.reserviereZimmer(
 					matze.getNr(), i);
 			reservierungService.bucheZusatzleistung(res.getNr(), sauna.getNr());
 			reservierungService.bucheZusatzleistung(res.getNr(),
@@ -65,7 +65,7 @@ public class ReservierungsKomponenteTest {
 			reservierungService.bucheZusatzleistung(res.getNr(), wlan.getNr());
 		}
 
-		Reservierung res = reservierungService
+		ReservierungTyp res = reservierungService
 				.reserviereZimmer(kai.getNr(), 40);
 		reservierungService.bucheZusatzleistung(res.getNr(), sauna.getNr());
 

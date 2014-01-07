@@ -16,12 +16,12 @@ public class GastverwaltungKomponente implements IGastServices,
 	}
 
 	@Override
-	public Gast erzeugeGast(Integer nr, String name, EmailTyp email) {
+	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email) {
 		return this.gastVerwaltungAnwendungsfall.erzeugeGast(nr, name, email);
 	}
 
 	@Override
-	public Gast sucheGastNachName(String name) {
+	public GastTyp sucheGastNachName(String name) {
 		return this.gastVerwaltungAnwendungsfall.sucheGastNachName(name);
 	}
 

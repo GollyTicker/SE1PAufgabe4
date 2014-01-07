@@ -1,17 +1,17 @@
 package Reservierungskomponente;
 
-public class Zusatzleistung {
+public class ZusatzleistungTyp {
 
 	private Integer nr;
 	private String leistungsart;
 
-	private Zusatzleistung(Integer nr, String leistungsart) {
+	private ZusatzleistungTyp(Integer nr, String leistungsart) {
 		this.nr = nr;
 		this.leistungsart = leistungsart;
 	}
 
-	public static Zusatzleistung zusatzleistung(Integer nr, String leistungsart) {
-		return new Zusatzleistung(nr, leistungsart);
+	public static ZusatzleistungTyp zusatzleistung(Integer nr, String leistungsart) {
+		return new ZusatzleistungTyp(nr, leistungsart);
 	}
 
 	@Override
@@ -38,9 +38,9 @@ public class Zusatzleistung {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Zusatzleistung))
+		if (!(obj instanceof ZusatzleistungTyp))
 			return false;
-		Zusatzleistung z = (Zusatzleistung) obj;
+		ZusatzleistungTyp z = (ZusatzleistungTyp) obj;
 		return z.getNr().compareTo(this.getNr()) == 0;
 	}
 }
