@@ -1,23 +1,23 @@
-package a10.gastkomponente;
+package Typen;
 
 import javax.management.InvalidAttributeValueException;
 
-public final class Email {
+public final class EmailTyp {
 
 	private String name;
 	private String server;
 	private String domain;
 
 	// Initialization
-	private Email(String name, String server, String domain) {
+	private EmailTyp(String name, String server, String domain) {
 		emailIsValidOrThrow(name, server, domain);
 		this.name = name;
 		this.server = server;
 		this.domain = domain;
 	}
 
-	public static Email email(String name, String server, String domain) {
-		return new Email(name, server, domain);
+	public static EmailTyp email(String name, String server, String domain) {
+		return new EmailTyp(name, server, domain);
 	}
 
 	@Override
@@ -42,9 +42,9 @@ public final class Email {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Email))
+		if (!(obj instanceof EmailTyp))
 			return false;
-		Email temp = (Email) obj;
+		EmailTyp temp = (EmailTyp) obj;
 		return temp.getName() == this.getName()
 				&& temp.getServer() == this.getServer()
 				&& temp.getDomain() == this.getDomain();
@@ -77,5 +77,4 @@ public final class Email {
 		}
 		return false;
 	}
-
 }
