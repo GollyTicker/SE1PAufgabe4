@@ -1,35 +1,34 @@
 package Gastkomponente;
 
-import Precondition.Precondition;
+import static Precondition.Precondition.assertArgument;
 import Services.IGastServices;
 import Services.IGastServicesFuerReservierung;
 
 public class GastAnwendungsfall implements IGastServices,
 		IGastServicesFuerReservierung {
 
-	private Gastverwalter gastverwalter = null;
+	private Gastverwalter gVerw = null;
 
-	public GastAnwendungsfall(Gastverwalter gastverwalter) {
-		this.gastverwalter = gastverwalter;
+	public GastAnwendungsfall(Gastverwalter gVerw) {
+		this.gVerw = gVerw;
 	}
 
 	@Override
 	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email) {
-		Precondition.requires(email != null);
-		Precondition.requires(name != null && name.length() <= 30
-				&& name.length() > 0);
-		Precondition.requires(nr != null && nr >= 0);
-		return this.gastverwalter.erzeugeGast(nr, name, email);
+		assertArgument(email != null);
+		assertArgument(name != null && name.length() <= 30 && name.length() > 0);
+		assertArgument(nr != null && nr >= 0);
+		return gVerw.erzeugeGast(nr, name, email);
 	}
 
 	@Override
 	public GastTyp sucheGastNachName(String name) {
-		Precondition.requires(name != null && name.length() > 0);
-		return this.gastverwalter.sucheGastNachName(name);
+		assertArgument(name != null && name.length() > 0);
+		return gVerw.sucheGastNachName(name);
 	}
 
 	@Override
 	public void markiereGastAlsStammkunden(Integer nr) {
-		this.gastverwalter.markiereGastStammkundeFallsBedingungenErfuellt(nr);
+		gVerw.markiereGastStammkundeFallsBedingungenErfuellt(nr);
 	}
 }

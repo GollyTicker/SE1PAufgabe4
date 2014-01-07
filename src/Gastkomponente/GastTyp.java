@@ -1,56 +1,38 @@
 package Gastkomponente;
 
-
 public class GastTyp {
 
 	private Integer nr;
 	private String name;
 	private EmailTyp email;
-	private Boolean istStammkunde;
+	private Boolean stammkunde;
 
-	private GastTyp(Integer nr, String name, EmailTyp email, Boolean istStammkunde) {
+	private GastTyp(Integer nr, String name, EmailTyp email, Boolean stammkunde) {
 		this.nr = nr;
 		this.name = name;
 		this.email = email;
-		this.istStammkunde = istStammkunde;
-	}
-	
-	public static GastTyp gast(Integer nr, String name, EmailTyp email, Boolean istStammkunde) {
-		return new GastTyp(nr, name, email, istStammkunde);
+		this.stammkunde = stammkunde;
 	}
 
-	@Override
-	public String toString() {
-		return "Gast{nr=" + nr + ", name=" + name + ", email=" + email
-				+ ", istStammkunde=" + istStammkunde + "}";
+	public static GastTyp gast(Integer nr, String name, EmailTyp email,
+			Boolean stammkunde) {
+		return new GastTyp(nr, name, email, stammkunde);
 	}
 
-	public Integer getNr() {
+	public Integer nr() {
 		return nr;
 	}
 
-	public void setNr(Integer nr) {
-		this.nr = nr;
-	}
-
-	public String getName() {
+	public String name() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public EmailTyp getEmail() {
+	public EmailTyp email() {
 		return email;
 	}
 
-	public void setEmail(EmailTyp email) {
-		this.email = email;
-	}
-
 	public Boolean istStammkunde() {
-		return istStammkunde;
+		return stammkunde;
 	}
 
 	@Override
@@ -66,7 +48,12 @@ public class GastTyp {
 		if (!(obj instanceof GastTyp))
 			return false;
 		GastTyp g = (GastTyp) obj;
-		return g.getNr().compareTo(this.getNr()) == 0;
+		return Integer.compare(g.nr(), nr()) == 0;
+	}
+
+	@Override
+	public String toString() {
+		return "Gast(" + nr() + ", " + name() + ", " + istStammkunde() + ")";
 	}
 
 }

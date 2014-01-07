@@ -1,52 +1,51 @@
 package Gastkomponente;
 
-import javax.management.InvalidAttributeValueException;
+import java.lang.IllegalArgumentException;
 
 public final class EmailTyp {
 
 	private String name;
 	private String server;
-	private String domain;
-	
-	private EmailTyp(String name, String server, String domain) {
-		emailIsValidOrThrow(name, server, domain);
+	private String country;
+
+	private EmailTyp(String name, String server, String country) {
+		assertValidEmail(name, server, country);
 		this.name = name;
 		this.server = server;
-		this.domain = domain;
+		this.country = country;
 	}
 
-	public static EmailTyp email(String name, String server, String domain) {
-		return new EmailTyp(name, server, domain);
+	public static EmailTyp email(String name, String server, String country) {
+		return new EmailTyp(name, server, country);
 	}
 
-	@Override
-	public String toString() {
-		return this.getName() + "@" + this.getServer() + "." + this.getDomain();
-	}
-
-	// Selector
-	public String getName() {
+	public String name() {
 		return this.name;
 	}
 
-	public String getServer() {
+	public String server() {
 		return this.server;
 	}
 
-	public String getDomain() {
-		return this.domain;
+	public String country() {
+		return this.country;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	private void assertValidEmail(String name, String server, String country) {
+		try {
+			if (!validEmail(name, server, country))
+				throw new IllegalArgumentException("invalid email");
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private boolean validEmail(String name, String server, String country) {
+		if (name.matches("[a-z]+") && server.matches("[a-z]+")
+				&& country.matches("[a-z]+")) {
 			return true;
-		if (!(obj instanceof EmailTyp))
-			return false;
-		EmailTyp temp = (EmailTyp) obj;
-		return temp.getName() == this.getName()
-				&& temp.getServer() == this.getServer()
-				&& temp.getDomain() == this.getDomain();
+		}
+		return false;
 	}
 
 	@Override
@@ -58,22 +57,19 @@ public final class EmailTyp {
 		return (int) (longBits ^ (longBits >>> 32));
 	}
 
-	// Exception Handling
-	private void emailIsValidOrThrow(String name, String server, String domain) {
-		try {
-			if (!emailIsValid(name, server, domain))
-				throw new InvalidAttributeValueException(
-						"name, server and domain shall match regexp [a-z]+");
-		} catch (InvalidAttributeValueException iave) {
-			iave.printStackTrace();
-		}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof EmailTyp))
+			return false;
+		EmailTyp temp = (EmailTyp) obj;
+		return temp.name() == this.name() && temp.server() == this.server()
+				&& temp.country() == country();
 	}
 
-	private boolean emailIsValid(String name, String server, String domain) {
-		if (name.matches("[a-z]+") && server.matches("[a-z]+")
-				&& domain.matches("[a-z]+")) {
-			return true;
-		}
-		return false;
+	@Override
+	public String toString() {
+		return this.name() + "@" + this.server() + "." + country();
 	}
 }
