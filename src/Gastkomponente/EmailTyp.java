@@ -47,6 +47,14 @@ public final class EmailTyp {
 		}
 		return false;
 	}
+	
+	public static EmailTyp emailConvertFromString(String plain) {
+		String[] s = plain.split("(@|\\.)");
+		String name = s[0];
+		String server = s[1];
+		String domain = s[2];
+		return EmailTyp.email(name, server, domain);
+	}
 
 	@Override
 	public int hashCode() {
