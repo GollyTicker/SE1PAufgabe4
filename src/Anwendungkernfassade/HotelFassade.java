@@ -1,16 +1,16 @@
 package Anwendungkernfassade;
 
-import persistenz.IPersistenzService;
-import persistenz.DatabaseConnection;
+import Gastkomponente.Gast;
+import Gastkomponente.GastverwaltungKomponente;
+import Gastkomponente.IGastServices;
+import Gastkomponente.IGastServicesFuerReservierung;
+import Persistenz.DatabaseConnection;
+import Persistenz.IPersistenzService;
+import Reservierungskomponente.IReservierungServices;
+import Reservierungskomponente.Reservierung;
+import Reservierungskomponente.ReservierungverwaltungKomponente;
+import Reservierungskomponente.Zusatzleistung;
 import Typen.EmailTyp;
-import a10.gastkomponente.Gast;
-import a10.gastkomponente.IGastServices;
-import a10.gastkomponente.IGastServicesFuerReservierung;
-import a10.gastkomponente.verwalter.GastverwaltungKomponente;
-import a10.reservierungskomponente.IReservierungServices;
-import a10.reservierungskomponente.Reservierung;
-import a10.reservierungskomponente.Zusatzleistung;
-import a10.reservierungskomponente.verwalter.ReservierungverwaltungKomponente;
 
 public class HotelFassade implements IHotelFassade{
 

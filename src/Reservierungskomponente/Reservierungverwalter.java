@@ -1,11 +1,9 @@
-package a10.reservierungskomponente.verwalter;
+package Reservierungskomponente;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import a10.reservierungskomponente.Reservierung;
-import a10.reservierungskomponente.Zusatzleistung;
-import persistenz.IPersistenzService;
+import Persistenz.IPersistenzService;
 
 public class Reservierungverwalter {
 

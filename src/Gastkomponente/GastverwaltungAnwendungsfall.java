@@ -1,10 +1,7 @@
-package a10.gastkomponente.verwalter;
+package Gastkomponente;
 
+import Typen.Precondition;
 import Typen.EmailTyp;
-import a10.gastkomponente.Gast;
-import a10.gastkomponente.IGastServices;
-import a10.gastkomponente.IGastServicesFuerReservierung;
-import a10.util.Contract;
 
 public class GastverwaltungAnwendungsfall implements IGastServices,
 		IGastServicesFuerReservierung {
@@ -17,16 +14,16 @@ public class GastverwaltungAnwendungsfall implements IGastServices,
 
 	@Override
 	public Gast erzeugeGast(Integer nr, String name, EmailTyp email) {
-		Contract.requires(email != null);
-		Contract.requires(name != null && name.length() <= 30
+		Precondition.requires(email != null);
+		Precondition.requires(name != null && name.length() <= 30
 				&& name.length() > 0);
-		Contract.requires(nr != null && nr >= 0);
+		Precondition.requires(nr != null && nr >= 0);
 		return this.gastverwalter.erzeugeGast(nr, name, email);
 	}
 
 	@Override
 	public Gast sucheGastNachName(String name) {
-		Contract.requires(name != null && name.length() > 0);
+		Precondition.requires(name != null && name.length() > 0);
 		return this.gastverwalter.sucheGastNachName(name);
 	}
 

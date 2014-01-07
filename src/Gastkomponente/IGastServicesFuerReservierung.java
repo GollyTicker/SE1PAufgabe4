@@ -1,4 +1,4 @@
-package a10.gastkomponente;
+package Gastkomponente;
 
 public interface IGastServicesFuerReservierung {
 

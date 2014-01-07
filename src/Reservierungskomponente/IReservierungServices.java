@@ -1,6 +1,6 @@
-package a10.reservierungskomponente;
+package Reservierungskomponente;
 
-import a10.reservierungskomponente.Zusatzleistung;
+import Reservierungskomponente.Zusatzleistung;
 
 public interface IReservierungServices {
 

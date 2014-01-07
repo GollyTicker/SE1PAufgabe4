@@ -1,10 +1,7 @@
-package a10.reservierungskomponente.verwalter;
+package Reservierungskomponente;
 
-import a10.gastkomponente.IGastServicesFuerReservierung;
-import a10.reservierungskomponente.IReservierungServices;
-import a10.reservierungskomponente.Reservierung;
-import a10.reservierungskomponente.Zusatzleistung;
-import a10.util.Contract;
+import Gastkomponente.IGastServicesFuerReservierung;
+import Typen.Precondition;
 
 public class ReservierungverwaltungAnwendungsfall implements
 		IReservierungServices {
@@ -21,14 +18,14 @@ public class ReservierungverwaltungAnwendungsfall implements
 
 	@Override
 	public Zusatzleistung erzeugeZusatzleistung(String name) {
-		Contract.requires(name != null && name.length() > 0);
+		Precondition.requires(name != null && name.length() > 0);
 		return this.reservierungverwalter.erzeugeZusatzleistung(name);
 	}
 
 	@Override
 	public Reservierung reserviereZimmer(Integer gastNr, Integer zimmerNr) {
-		Contract.requires(gastNr != null && gastNr > 0);
-		Contract.requires(zimmerNr != null);
+		Precondition.requires(gastNr != null && gastNr > 0);
+		Precondition.requires(zimmerNr != null);
 		Reservierung result = reservierungverwalter.reserviereZimmer(gastNr, zimmerNr);
 		gastServicesFuerReservierung.markiereGastAlsStammkunden(gastNr);
 		return result;
@@ -37,8 +34,8 @@ public class ReservierungverwaltungAnwendungsfall implements
 	@Override
 	public void bucheZusatzleistung(Integer reservierungNr,
 			Integer zusatzleistungNr) {
-		Contract.requires(zusatzleistungNr != null && zusatzleistungNr > 0);
-		Contract.requires(reservierungNr != null && reservierungNr > 0);
+		Precondition.requires(zusatzleistungNr != null && zusatzleistungNr > 0);
+		Precondition.requires(reservierungNr != null && reservierungNr > 0);
 		Integer gastNr = reservierungverwalter
 				.sucheGastNrNachReservierungNr(reservierungNr);
 		gastServicesFuerReservierung.markiereGastAlsStammkunden(gastNr);

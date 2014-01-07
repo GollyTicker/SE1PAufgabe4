@@ -1,5 +1,5 @@
 // credits to http://www.vogella.com/articles/MySQLJava/article.html
-package persistenz;
+package Persistenz;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

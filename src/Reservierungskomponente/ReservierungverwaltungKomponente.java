@@ -1,10 +1,7 @@
-package a10.reservierungskomponente.verwalter;
+package Reservierungskomponente;
 
-import persistenz.IPersistenzService;
-import a10.gastkomponente.IGastServicesFuerReservierung;
-import a10.reservierungskomponente.IReservierungServices;
-import a10.reservierungskomponente.Reservierung;
-import a10.reservierungskomponente.Zusatzleistung;
+import Gastkomponente.IGastServicesFuerReservierung;
+import Persistenz.IPersistenzService;
 
 public class ReservierungverwaltungKomponente implements IReservierungServices {
 

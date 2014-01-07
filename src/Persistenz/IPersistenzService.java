@@ -1,4 +1,4 @@
-package persistenz;
+package Persistenz;
 
 import java.sql.ResultSet;
 

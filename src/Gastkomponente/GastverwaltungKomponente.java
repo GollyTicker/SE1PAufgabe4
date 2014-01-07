@@ -1,10 +1,7 @@
-package a10.gastkomponente.verwalter;
+package Gastkomponente;
 
-import persistenz.IPersistenzService;
+import Persistenz.IPersistenzService;
 import Typen.EmailTyp;
-import a10.gastkomponente.Gast;
-import a10.gastkomponente.IGastServices;
-import a10.gastkomponente.IGastServicesFuerReservierung;
 
 public class GastverwaltungKomponente implements IGastServices,
 		IGastServicesFuerReservierung {

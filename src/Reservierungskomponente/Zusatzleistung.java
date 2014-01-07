@@ -1,4 +1,4 @@
-package a10.reservierungskomponente;
+package Reservierungskomponente;
 
 public class Zusatzleistung {
 

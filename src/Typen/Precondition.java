@@ -1,8 +1,8 @@
-package a10.util;
+package Typen;
 
-public class Contract {
+public class Precondition {
 
-	private Contract() {
+	private Precondition() {
 
 	}
 

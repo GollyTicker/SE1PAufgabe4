@@ -1,4 +1,4 @@
-package a10.gastkomponente;
+package Gastkomponente;
 
 import Typen.EmailTyp;
 

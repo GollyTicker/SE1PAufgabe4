@@ -1,10 +1,9 @@
-package a10.gastkomponente.verwalter;
+package Gastkomponente;
 
 import java.sql.ResultSet;
 
-import persistenz.IPersistenzService;
+import Persistenz.IPersistenzService;
 import Typen.EmailTyp;
-import a10.gastkomponente.Gast;
 
 public class Gastverwalter {
 
