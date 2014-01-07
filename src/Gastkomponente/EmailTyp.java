@@ -7,8 +7,7 @@ public final class EmailTyp {
 	private String name;
 	private String server;
 	private String domain;
-
-	// Initialization
+	
 	private EmailTyp(String name, String server, String domain) {
 		emailIsValidOrThrow(name, server, domain);
 		this.name = name;

@@ -16,7 +16,7 @@ import Gastkomponente.GastTyp;
 import Reservierungskomponente.ReservierungTyp;
 import Reservierungskomponente.ZusatzleistungTyp;
 
-public class WorkflowIntegrationTest {
+public class BlackBoxTestHotelFassade {
 
 	private IHotelFassade hotelFassade;
 
