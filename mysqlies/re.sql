@@ -1,4 +1,8 @@
 
+-- Zum starten der Datenbank.
+-- CMD mit Adminrechten ausführen und "startmsql" "tun".
+-- beenden des Servers mit "stopmysql".
+
 DROP TABLE IF EXISTS z2r;
 DROP TABLE IF EXISTS Reservierung;
 DROP TABLE IF EXISTS Zusatzleistung;

@@ -22,7 +22,7 @@ public class SqlConnecter implements IPersistenzService {
 			Class.forName("com.mysql.jdbc.Driver");
 			this.connect = DriverManager
 					.getConnection("jdbc:mysql://localhost/test?"
-							+ "user=kbrusch&password=");
+							+ "user=myuser&password=");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -87,40 +87,4 @@ public class SqlConnecter implements IPersistenzService {
 			e.printStackTrace();
 		}
 	}
-
-	private void close() {
-		try {
-			if (resultSet != null) {
-				resultSet.close();
-			}
-			if (statement != null) {
-				statement.close();
-			}
-			if (connect != null) {
-				connect.close();
-			}
-		} catch (Exception e) {
-
-		}
-	}
-
-	// private void writeMetaData(ResultSet resultSet) throws SQLException {
-	// System.out.println("The columns in the table are: ");
-	// System.out.println("Table: " + resultSet.getMetaData().getTableName(1));
-	// for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-	// System.out.println("Column " + i + " "
-	// + resultSet.getMetaData().getColumnName(i));
-	// }
-	// }
-	//
-	// private void writeResultSet(ResultSet resultSet) throws SQLException {
-	// while (resultSet.next()) {
-	// String nr = resultSet.getString("Nr");
-	// String name = resultSet.getString("Name");
-	// String email = resultSet.getString("Email");
-	// System.out.println("Nummer: " + nr + " name: " + name + " email: "
-	// + email);
-	// }
-	// }
-
 }
