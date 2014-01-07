@@ -8,7 +8,7 @@ public interface IPersistenzService {
 
 	ResultSet readByStrAttribute(String name, String table, String identifier);
 
-	ResultSet readPlainSql(String query);
+	ResultSet readByRawQuery(String query);
 
 	void updateByRawQuery(String query);
 }

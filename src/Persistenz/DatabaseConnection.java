@@ -1,4 +1,3 @@
-// credits to http://www.vogella.com/articles/MySQLJava/article.html
 package Persistenz;
 
 import java.sql.Connection;
@@ -17,8 +16,8 @@ public class DatabaseConnection implements IPersistenzService {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			this.connect = DriverManager
-					.getConnection("jdbc:mysql://localhost/test?"
-							+ "user="+user+"&password=");
+					.getConnection("jdbc:mysql://localhost/test?" + "user="
+							+ user + "&password=");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -26,7 +25,29 @@ public class DatabaseConnection implements IPersistenzService {
 		}
 	}
 
-	public ResultSet readPlainSql(String query) {
+	public void create(String query) {
+		try {
+			PreparedStatement preparedStatement = connect
+					.prepareStatement(query);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public ResultSet readByStrAttribute(String value, String table, String attr) {
+		try {
+			Statement statement = connect.createStatement();
+			String query = "select * from " + table + " where " + attr + " = "
+					+ "'" + value + "'";
+			return statement.executeQuery(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public ResultSet readByRawQuery(String query) {
 		try {
 			Statement statement = connect.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
@@ -48,27 +69,4 @@ public class DatabaseConnection implements IPersistenzService {
 
 	}
 
-	public ResultSet readByStrAttribute(String value, String table, String attr) {
-		try {
-			Statement statement = connect.createStatement();
-			String query = "select * from " + table + " where " + attr + " = "
-					+ "'" + value + "'";
-			System.out.println(query);
-			ResultSet resultSet = statement.executeQuery(query);
-			return resultSet;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public void create(String query) {
-		try {
-			PreparedStatement preparedStatement = connect
-					.prepareStatement(query);
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 }

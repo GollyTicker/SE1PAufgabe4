@@ -13,6 +13,18 @@ public class Gastverwalter {
 		this.persServ = persServ;
 	}
 
+	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email) {
+		try {
+			String query = "insert into gast values(" + nr + ", '" + name
+					+ "', '" + email.toString() + "', false)";
+			persServ.create(query);
+			return sucheGastNachName(name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public GastTyp sucheGastNachName(String name) {
 		ResultSet rs = persServ.readByStrAttribute(name, "gast", "name");
 		try {
@@ -23,21 +35,6 @@ public class Gastverwalter {
 				Boolean istStammK = rs.getBoolean("IstStammkunde");
 				return gast(nr, name2, emailConvertFromString(email), istStammK);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// if not found
-		return null;
-	}
-
-	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email) {
-		try {
-			String query = "insert into gast values(" + nr
-					+ ", '" + name
-					+ "', '" + email.toString()
-					+ "', false)";
-			persServ.create(query);
-			return sucheGastNachName(name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -53,23 +50,22 @@ public class Gastverwalter {
 		String reservierungenZusatzQuery = "select count(distinct res.Nr) as zusatzreservierung "
 				+ "from (select Nr from umfasst,"
 				+ "reservierung r where gastID="
-				+ gastNr + " and umfasst.rID=r.Nr group by Nr) res;";
+				+ gastNr
+				+ " and umfasst.rID=r.Nr group by Nr) res;";
 
 		String queryIfStammkunde = "update gast set IstStammkunde = true where Nr = "
 				+ gastNr + ";";
 
-		ResultSet rs = persServ.readPlainSql(reservierungenQuery);
-		ResultSet rs2 = persServ.readPlainSql(reservierungenZusatzQuery);
+		ResultSet rs = persServ.readByRawQuery(reservierungenQuery);
+		ResultSet rs2 = persServ.readByRawQuery(reservierungenZusatzQuery);
 
 		try {
 			while (rs.next()) {
-
 				if (rs.getInt("reservierung") >= 6) {
 					persServ.updateByRawQuery(queryIfStammkunde);
 				}
 			}
 			while (rs2.next()) {
-
 				if (rs2.getInt("zusatzreservierung") >= 3) {
 					persServ.updateByRawQuery(queryIfStammkunde);
 				}

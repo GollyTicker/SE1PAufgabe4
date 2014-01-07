@@ -82,7 +82,7 @@ public class Reservierungverwalter {
 		
 		String searchQuery = "select gastID from reservierung where Nr="
 				+ reservierungNr;
-		ResultSet rs = persServ.readPlainSql(searchQuery);
+		ResultSet rs = persServ.readByRawQuery(searchQuery);
 		Integer gastnr = -1;
 		try {
 			while (rs.next()) {
