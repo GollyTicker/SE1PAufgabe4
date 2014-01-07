@@ -6,39 +6,35 @@ import Services.IReservierungServices;
 
 public class ReservierungsKomponente implements IReservierungServices {
 
-	private Reservierungverwalter resVerwalter = null;
-	private ReservierungsAnwendungsfall resVerwaltungAnwendungsfall = null;
+	private Reservierungverwalter resVerw = null;
+	private ReservierungsAnwendungsfall resVerwAf = null;
 
-	public ReservierungsKomponente(
-			IPersistenzService persistenceManager,
+	public ReservierungsKomponente(IPersistenzService persistenceManager,
 			IGastServicesFuerReservierung gastServicesFuerReservierung) {
-		resVerwalter = new Reservierungverwalter(persistenceManager);
-		resVerwaltungAnwendungsfall = new ReservierungsAnwendungsfall(
-				resVerwalter, gastServicesFuerReservierung);
+		resVerw = new Reservierungverwalter(persistenceManager);
+		resVerwAf = new ReservierungsAnwendungsfall(resVerw,
+				gastServicesFuerReservierung);
 	}
 
 	@Override
 	public ZusatzleistungTyp erzeugeZusatzleistung(String name) {
-		return this.resVerwaltungAnwendungsfall.erzeugeZusatzleistung(name);
+		return this.resVerwAf.erzeugeZusatzleistung(name);
 	}
 
 	@Override
 	public ReservierungTyp reserviereZimmer(Integer gastNr, Integer zimmerNr) {
-		return this.resVerwaltungAnwendungsfall.reserviereZimmer(gastNr,
-				zimmerNr);
+		return this.resVerwAf.reserviereZimmer(gastNr, zimmerNr);
 	}
 
 	@Override
 	public void bucheZusatzleistung(Integer reservierungNr,
 			Integer zusatzleistungNr) {
-		this.resVerwaltungAnwendungsfall.bucheZusatzleistung(reservierungNr,
-				zusatzleistungNr);
+		this.resVerwAf.bucheZusatzleistung(reservierungNr, zusatzleistungNr);
 	}
-	
+
 	@Override
 	public Integer sucheGastNrNachReservierungNr(Integer reservierungNr) {
-		return this.resVerwaltungAnwendungsfall
-				.sucheGastNrNachReservierungNr(reservierungNr);
+		return this.resVerwAf.sucheGastNrNachReservierungNr(reservierungNr);
 	}
 
 }
