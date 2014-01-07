@@ -1,6 +1,5 @@
-package Gastkomponente;
+package Typen;
 
-import Typen.EmailTyp;
 
 public class GastTyp {
 

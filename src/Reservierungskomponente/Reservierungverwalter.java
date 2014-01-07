@@ -2,10 +2,12 @@ package Reservierungskomponente;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static Reservierungskomponente.ZusatzleistungTyp.zusatzleistung;
-import static Reservierungskomponente.ReservierungTyp.reservierung;
 
+import static Typen.ReservierungTyp.reservierung;
+import static Typen.ZusatzleistungTyp.zusatzleistung;
 import Persistenz.IPersistenzService;
+import Typen.ReservierungTyp;
+import Typen.ZusatzleistungTyp;
 
 public class Reservierungverwalter {
 

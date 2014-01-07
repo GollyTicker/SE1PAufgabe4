@@ -1,6 +1,7 @@
-package Reservierungskomponente;
+package Services;
 
-import Reservierungskomponente.ZusatzleistungTyp;
+import Typen.ReservierungTyp;
+import Typen.ZusatzleistungTyp;
 
 public interface IReservierungServices {
 

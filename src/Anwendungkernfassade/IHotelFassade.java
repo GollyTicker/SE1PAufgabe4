@@ -1,9 +1,9 @@
 package Anwendungkernfassade;
 
-import Gastkomponente.GastTyp;
-import Reservierungskomponente.ReservierungTyp;
-import Reservierungskomponente.ZusatzleistungTyp;
 import Typen.EmailTyp;
+import Typen.GastTyp;
+import Typen.ReservierungTyp;
+import Typen.ZusatzleistungTyp;
 
 public interface IHotelFassade {
 	

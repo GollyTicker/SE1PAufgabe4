@@ -1,7 +1,10 @@
 package Gastkomponente;
 
 import Persistenz.IPersistenzService;
+import Services.IGastServices;
+import Services.IGastServicesFuerReservierung;
 import Typen.EmailTyp;
+import Typen.GastTyp;
 
 public class GastverwaltungKomponente implements IGastServices,
 		IGastServicesFuerReservierung {

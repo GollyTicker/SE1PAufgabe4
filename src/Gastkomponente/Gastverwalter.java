@@ -2,9 +2,10 @@ package Gastkomponente;
 
 import java.sql.ResultSet;
 
-import static Gastkomponente.GastTyp.gast;
+import static Typen.GastTyp.gast;
 import Persistenz.IPersistenzService;
 import Typen.EmailTyp;
+import Typen.GastTyp;
 
 public class Gastverwalter {
 

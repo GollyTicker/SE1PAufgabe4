@@ -1,5 +1,8 @@
 package Gastkomponente;
 
+import Services.IGastServices;
+import Services.IGastServicesFuerReservierung;
+import Typen.GastTyp;
 import Typen.Precondition;
 import Typen.EmailTyp;
 

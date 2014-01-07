@@ -1,4 +1,4 @@
-package Reservierungskomponente;
+package Typen;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package Gastkomponente;
+package Services;
 
 public interface IGastServicesFuerReservierung {
 

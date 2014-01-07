@@ -1,7 +1,10 @@
 package Reservierungskomponente;
 
-import Gastkomponente.IGastServicesFuerReservierung;
+import Services.IGastServicesFuerReservierung;
+import Services.IReservierungServices;
 import Typen.Precondition;
+import Typen.ReservierungTyp;
+import Typen.ZusatzleistungTyp;
 
 public class ReservierungverwaltungAnwendungsfall implements
 		IReservierungServices {

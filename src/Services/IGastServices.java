@@ -1,6 +1,7 @@
-package Gastkomponente;
+package Services;
 
 import Typen.EmailTyp;
+import Typen.GastTyp;
 
 public interface IGastServices {
 

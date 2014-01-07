@@ -6,17 +6,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import Gastkomponente.GastTyp;
 import Gastkomponente.GastverwaltungKomponente;
-import Gastkomponente.IGastServices;
-import Gastkomponente.IGastServicesFuerReservierung;
 import Persistenz.DatabaseConnection;
 import Persistenz.IPersistenzService;
-import Reservierungskomponente.IReservierungServices;
-import Reservierungskomponente.ReservierungTyp;
 import Reservierungskomponente.ReservierungverwaltungKomponente;
-import Reservierungskomponente.ZusatzleistungTyp;
+import Services.IGastServices;
+import Services.IGastServicesFuerReservierung;
+import Services.IReservierungServices;
 import Typen.EmailTyp;
+import Typen.GastTyp;
+import Typen.ReservierungTyp;
+import Typen.ZusatzleistungTyp;
 
 public class ReservierungsKomponenteTest {
 
