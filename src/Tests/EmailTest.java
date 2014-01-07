@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import Typen.EmailTyp;
+import Gastkomponente.EmailTyp;
 
 public class EmailTest {
 

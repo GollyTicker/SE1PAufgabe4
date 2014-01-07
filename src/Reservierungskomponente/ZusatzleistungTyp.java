@@ -1,4 +1,4 @@
-package Typen;
+package Reservierungskomponente;
 
 public class ZusatzleistungTyp {
 

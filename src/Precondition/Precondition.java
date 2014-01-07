@@ -1,4 +1,4 @@
-package Typen;
+package Precondition;
 
 public class Precondition {
 

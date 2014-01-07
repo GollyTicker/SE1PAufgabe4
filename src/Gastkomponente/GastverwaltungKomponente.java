@@ -3,18 +3,16 @@ package Gastkomponente;
 import Persistenz.IPersistenzService;
 import Services.IGastServices;
 import Services.IGastServicesFuerReservierung;
-import Typen.EmailTyp;
-import Typen.GastTyp;
 
 public class GastverwaltungKomponente implements IGastServices,
 		IGastServicesFuerReservierung {
 
 	private Gastverwalter gastVerwalter = null;
-	private GastverwaltungAnwendungsfall gastVerwaltungAnwendungsfall = null;
+	private GastAnwendungsfall gastVerwaltungAnwendungsfall = null;
 
 	public GastverwaltungKomponente(IPersistenzService persistenceManager) {
 		gastVerwalter = new Gastverwalter(persistenceManager);
-		gastVerwaltungAnwendungsfall = new GastverwaltungAnwendungsfall(
+		gastVerwaltungAnwendungsfall = new GastAnwendungsfall(
 				gastVerwalter);
 	}
 

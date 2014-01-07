@@ -1,17 +1,15 @@
 package Gastkomponente;
 
+import Precondition.Precondition;
 import Services.IGastServices;
 import Services.IGastServicesFuerReservierung;
-import Typen.GastTyp;
-import Typen.Precondition;
-import Typen.EmailTyp;
 
-public class GastverwaltungAnwendungsfall implements IGastServices,
+public class GastAnwendungsfall implements IGastServices,
 		IGastServicesFuerReservierung {
 
 	private Gastverwalter gastverwalter = null;
 
-	public GastverwaltungAnwendungsfall(Gastverwalter gastverwalter) {
+	public GastAnwendungsfall(Gastverwalter gastverwalter) {
 		this.gastverwalter = gastverwalter;
 	}
 

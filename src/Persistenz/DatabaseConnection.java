@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import Typen.EmailTyp;
+import Gastkomponente.EmailTyp;
 
 public class DatabaseConnection implements IPersistenzService {
 

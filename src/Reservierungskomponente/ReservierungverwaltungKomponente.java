@@ -3,19 +3,17 @@ package Reservierungskomponente;
 import Persistenz.IPersistenzService;
 import Services.IGastServicesFuerReservierung;
 import Services.IReservierungServices;
-import Typen.ReservierungTyp;
-import Typen.ZusatzleistungTyp;
 
 public class ReservierungverwaltungKomponente implements IReservierungServices {
 
 	private Reservierungverwalter resVerwalter = null;
-	private ReservierungverwaltungAnwendungsfall resVerwaltungAnwendungsfall = null;
+	private ReservierungsAnwendungsfall resVerwaltungAnwendungsfall = null;
 
 	public ReservierungverwaltungKomponente(
 			IPersistenzService persistenceManager,
 			IGastServicesFuerReservierung gastServicesFuerReservierung) {
 		resVerwalter = new Reservierungverwalter(persistenceManager);
-		resVerwaltungAnwendungsfall = new ReservierungverwaltungAnwendungsfall(
+		resVerwaltungAnwendungsfall = new ReservierungsAnwendungsfall(
 				resVerwalter, gastServicesFuerReservierung);
 	}
 

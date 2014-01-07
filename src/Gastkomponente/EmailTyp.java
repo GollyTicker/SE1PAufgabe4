@@ -1,4 +1,4 @@
-package Typen;
+package Gastkomponente;
 
 import javax.management.InvalidAttributeValueException;
 

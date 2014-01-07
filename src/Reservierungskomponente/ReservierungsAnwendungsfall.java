@@ -1,18 +1,16 @@
 package Reservierungskomponente;
 
+import Precondition.Precondition;
 import Services.IGastServicesFuerReservierung;
 import Services.IReservierungServices;
-import Typen.Precondition;
-import Typen.ReservierungTyp;
-import Typen.ZusatzleistungTyp;
 
-public class ReservierungverwaltungAnwendungsfall implements
+public class ReservierungsAnwendungsfall implements
 		IReservierungServices {
 
 	private Reservierungverwalter reservierungverwalter = null;
 	private IGastServicesFuerReservierung gastServicesFuerReservierung;
 
-	public ReservierungverwaltungAnwendungsfall(
+	public ReservierungsAnwendungsfall(
 			Reservierungverwalter reservierungverwalter,
 			IGastServicesFuerReservierung gastServicesFuerReservierung) {
 		this.reservierungverwalter = reservierungverwalter;

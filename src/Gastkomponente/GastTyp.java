@@ -1,4 +1,4 @@
-package Typen;
+package Gastkomponente;
 
 
 public class GastTyp {

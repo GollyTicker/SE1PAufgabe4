@@ -11,10 +11,10 @@ import org.junit.Test;
 
 import Anwendungkernfassade.HotelFassade;
 import Anwendungkernfassade.IHotelFassade;
-import Typen.EmailTyp;
-import Typen.GastTyp;
-import Typen.ReservierungTyp;
-import Typen.ZusatzleistungTyp;
+import Gastkomponente.EmailTyp;
+import Gastkomponente.GastTyp;
+import Reservierungskomponente.ReservierungTyp;
+import Reservierungskomponente.ZusatzleistungTyp;
 
 public class WorkflowIntegrationTest {
 
