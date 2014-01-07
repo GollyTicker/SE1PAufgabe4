@@ -35,7 +35,7 @@ public class Reservierungverwalter {
 
 	public ReservierungTyp sucheReservierung(Integer gastNr, Integer zimmerNr) {
 
-		ResultSet rs = persistenzService.read(gastNr.toString(),
+		ResultSet rs = persistenzService.readByStrAttribute(gastNr.toString(),
 				"Reservierung", "gast_id");
 
 		Integer nr = 0;
@@ -65,7 +65,7 @@ public class Reservierungverwalter {
 
 	public ZusatzleistungTyp sucheZusatzleistung(String name) {
 
-		ResultSet rs = persistenzService.read(name, "zusatzleistung",
+		ResultSet rs = persistenzService.readByStrAttribute(name, "zusatzleistung",
 				"LeistungsArt");
 
 		Integer nr = 0;

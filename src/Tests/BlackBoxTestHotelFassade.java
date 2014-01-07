@@ -50,18 +50,18 @@ public class BlackBoxTestHotelFassade {
 
 		for (int i = 1; i <= 2; i++) {
 			ReservierungTyp res = hotelFassade.reserviereZimmer(
-					steffen.getNr(), zimmerNr());
+					steffen.nr(), zimmerNr());
 			hotelFassade.bucheZusatzleistung(res.getNr(), wlan.getNr());
 		}
 
 		for (int i = 1; i <= 3; i++) {
 			ReservierungTyp res = hotelFassade.reserviereZimmer(
-					swaneet.getNr(), zimmerNr());
+					swaneet.nr(), zimmerNr());
 			hotelFassade.bucheZusatzleistung(res.getNr(), wlan.getNr());
 		}
 
 		for (int i = 1; i <= 5; i++) {
-			hotelFassade.reserviereZimmer(flasche.getNr(), zimmerNr());
+			hotelFassade.reserviereZimmer(flasche.nr(), zimmerNr());
 		}
 
 		steffen = hotelFassade.sucheGastNachName("Steffen");
@@ -73,7 +73,7 @@ public class BlackBoxTestHotelFassade {
 		assertFalse(flasche.istStammkunde());
 		
 
-		hotelFassade.reserviereZimmer(flasche.getNr(), zimmerNr());
+		hotelFassade.reserviereZimmer(flasche.nr(), zimmerNr());
 		flasche = hotelFassade.sucheGastNachName("Flasche");
 		assertTrue(flasche.istStammkunde());
 	}

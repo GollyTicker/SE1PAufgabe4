@@ -19,14 +19,14 @@ public class ReservierungsAnwendungsfall implements
 
 	@Override
 	public ZusatzleistungTyp erzeugeZusatzleistung(String name) {
-		Precondition.requires(name != null && name.length() > 0);
+		Precondition.assertArgument(name != null && name.length() > 0);
 		return this.reservierungverwalter.erzeugeZusatzleistung(name);
 	}
 
 	@Override
 	public ReservierungTyp reserviereZimmer(Integer gastNr, Integer zimmerNr) {
-		Precondition.requires(gastNr != null && gastNr > 0);
-		Precondition.requires(zimmerNr != null);
+		Precondition.assertArgument(gastNr != null && gastNr > 0);
+		Precondition.assertArgument(zimmerNr != null);
 		ReservierungTyp result = reservierungverwalter.reserviereZimmer(gastNr, zimmerNr);
 		gastServicesFuerReservierung.markiereGastAlsStammkunden(gastNr);
 		return result;
@@ -35,8 +35,8 @@ public class ReservierungsAnwendungsfall implements
 	@Override
 	public void bucheZusatzleistung(Integer reservierungNr,
 			Integer zusatzleistungNr) {
-		Precondition.requires(zusatzleistungNr != null && zusatzleistungNr > 0);
-		Precondition.requires(reservierungNr != null && reservierungNr > 0);
+		Precondition.assertArgument(zusatzleistungNr != null && zusatzleistungNr > 0);
+		Precondition.assertArgument(reservierungNr != null && reservierungNr > 0);
 		Integer gastNr = reservierungverwalter
 				.sucheGastNrNachReservierungNr(reservierungNr);
 		this.reservierungverwalter.bucheZusatzleistung(reservierungNr,

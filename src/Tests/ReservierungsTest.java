@@ -56,14 +56,14 @@ public class ReservierungsTest {
 
 		for (int i = 1; i <= 3; i++) {
 			ReservierungTyp res = reservierungService.reserviereZimmer(
-					swaneet.getNr(), i);
+					swaneet.nr(), i);
 			reservierungService.bucheZusatzleistung(res.getNr(),
 					balkon.getNr());
 			reservierungService.bucheZusatzleistung(res.getNr(), wlan.getNr());
 		}
 
 		ReservierungTyp res = reservierungService
-				.reserviereZimmer(steffen.getNr(), 0);
+				.reserviereZimmer(steffen.nr(), 0);
 		reservierungService.bucheZusatzleistung(res.getNr(), wlan.getNr());
 		
 		swaneet = gastService.sucheGastNachName("Swaneet");
