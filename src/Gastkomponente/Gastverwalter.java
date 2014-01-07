@@ -15,9 +15,9 @@ public class Gastverwalter {
 
 	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email) {
 		try {
-			String query = "insert into gast values(" + nr + ", '" + name
+			String selectQuery = "insert into gast values(" + nr + ", '" + name
 					+ "', '" + email.toString() + "', false)";
-			persServ.create(query);
+			persServ.create(selectQuery);
 			return sucheGastNachName(name);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -26,13 +26,13 @@ public class Gastverwalter {
 	}
 
 	public GastTyp sucheGastNachName(String name) {
-		ResultSet rs = persServ.readByStrAttribute(name, "gast", "name");
+		ResultSet res = persServ.readByStrAttribute(name, "gast", "name");
 		try {
-			while (rs.next()) {
-				String email = rs.getString("Email");
-				String name2 = rs.getString("name");
-				Integer nr = rs.getInt("Nr");
-				Boolean istStammK = rs.getBoolean("IstStammkunde");
+			while (res.next()) {
+				String email = res.getString("Email");
+				String name2 = res.getString("name");
+				Integer nr = res.getInt("Nr");
+				Boolean istStammK = res.getBoolean("IstStammkunde");
 				return gast(nr, name2, emailConvertFromString(email), istStammK);
 			}
 		} catch (Exception e) {
@@ -56,17 +56,17 @@ public class Gastverwalter {
 		String queryIfStammkunde = "update gast set IstStammkunde = true where Nr = "
 				+ gastNr + ";";
 
-		ResultSet rs = persServ.readByRawQuery(reservierungenQuery);
-		ResultSet rs2 = persServ.readByRawQuery(reservierungenZusatzQuery);
+		ResultSet res = persServ.readByRawQuery(reservierungenQuery);
+		ResultSet res2 = persServ.readByRawQuery(reservierungenZusatzQuery);
 
 		try {
-			while (rs.next()) {
-				if (rs.getInt("reservierung") >= 6) {
+			while (res.next()) {
+				if (res.getInt("reservierung") >= 6) {
 					persServ.updateByRawQuery(queryIfStammkunde);
 				}
 			}
-			while (rs2.next()) {
-				if (rs2.getInt("zusatzreservierung") >= 3) {
+			while (res2.next()) {
+				if (res2.getInt("zusatzreservierung") >= 3) {
 					persServ.updateByRawQuery(queryIfStammkunde);
 				}
 			}

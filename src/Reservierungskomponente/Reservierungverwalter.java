@@ -12,85 +12,74 @@ public class Reservierungverwalter {
 	private IPersistenzService persServ;
 
 	public Reservierungverwalter(IPersistenzService persServ) {
-		
 		this.persServ = persServ;
 	}
 
 	public ZusatzleistungTyp erzeugeZusatzleistung(String name) {
-
 		String query = "insert into Zusatzleistung values(default,'" + name
 				+ "')";
 		persServ.create(query);
-		ZusatzleistungTyp z = sucheZusatzleistung(name);
-		return z;
-	};
+		return sucheZusatzleistung(name); // nicht im interface. private methode
+	}
+
+	private ZusatzleistungTyp sucheZusatzleistung(String name) {
+		ResultSet res = persServ.readByStrAttribute(name, "zusatzleistung",
+				"LeistungsArt");
+		try {
+			while (res.next()) {
+				Integer nr = res.getInt("nr");
+				String leistung = res.getString("Leistungsart");
+				return zusatzleistung(nr, leistung);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public ReservierungTyp reserviereZimmer(Integer gastNr, Integer zimmerNr) {
-		
 		String query = "insert into Reservierung values(default," + zimmerNr
 				+ "," + gastNr + ");";
 		persServ.create(query);
-		ReservierungTyp r = sucheReservierung(gastNr, zimmerNr);
-		return r;
-	};
+		return sucheReservierung(gastNr, zimmerNr);		// auch eine private "getter" methode
+	}
 
 	public ReservierungTyp sucheReservierung(Integer gastNr, Integer zimmerNr) {
-		ResultSet rs = persServ.readByStrAttribute(gastNr.toString(),
+		ResultSet res = persServ.readByStrAttribute(gastNr.toString(),
 				"Reservierung", "gastID");
 		Integer nr = 0;
 		Integer zimmernr = 0;
 		try {
-			while (rs.next()) {
-				nr = (rs.getInt("nr"));
-				zimmernr = (rs.getInt("zimmerNr"));
+			while (res.next()) {
+				nr = res.getInt("nr");
+				zimmernr = res.getInt("zimmerNr");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		ReservierungTyp r = reservierung(nr, zimmernr);
-		System.out.println(r);
 		return r;
 	}
 
 	public void bucheZusatzleistung(Integer reservierungNr,
 			Integer zusatzleistungNr) {
-		
-		String query = "insert into umfasst values(default," + reservierungNr + ","
-				+ zusatzleistungNr + ")";
-		persServ.create(query);
-	};
 
-	public ZusatzleistungTyp sucheZusatzleistung(String name) {
-		ResultSet rs = persServ.readByStrAttribute(name, "zusatzleistung",
-				"LeistungsArt");
-		Integer nr = 0;
-		String leistung = "";
-		try {
-			while (rs.next()) {
-				nr = (rs.getInt("nr"));
-				leistung = rs.getString("Leistungsart");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		ZusatzleistungTyp z = zusatzleistung(nr, leistung);
-		System.out.println(z);
-		return z;
+		String query = "insert into umfasst values(default," + reservierungNr
+				+ "," + zusatzleistungNr + ")";
+		persServ.create(query);
 	}
 
 	public Integer sucheGastNrNachReservierungNr(Integer reservierungNr) {
-		
-		String searchQuery = "select gastID from reservierung where Nr="
+		String selectQuery = "select gastID from reservierung where Nr="
 				+ reservierungNr;
-		ResultSet rs = persServ.readByRawQuery(searchQuery);
-		Integer gastnr = -1;
+		ResultSet res = persServ.readByRawQuery(selectQuery);
 		try {
-			while (rs.next()) {
-				gastnr = rs.getInt("gastID");
+			while (res.next()) {
+				return res.getInt("gastID");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return gastnr;
+		return null;
 	}
 }

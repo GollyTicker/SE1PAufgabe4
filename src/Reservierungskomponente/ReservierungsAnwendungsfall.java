@@ -11,7 +11,6 @@ public class ReservierungsAnwendungsfall implements IReservierungServices {
 
 	public ReservierungsAnwendungsfall(Reservierungverwalter resVerw,
 			IGastServicesFuerReservierung gServFuerRes) {
-
 		this.resVerw = resVerw;
 		this.gServFuerRes = gServFuerRes;
 	}
@@ -37,7 +36,7 @@ public class ReservierungsAnwendungsfall implements IReservierungServices {
 		assertArgument(zusatzleistungNr != null && zusatzleistungNr > 0);
 		assertArgument(reservierungNr != null && reservierungNr > 0);
 		Integer gastNr = resVerw.sucheGastNrNachReservierungNr(reservierungNr);
-		this.resVerw.bucheZusatzleistung(reservierungNr, zusatzleistungNr);
+		resVerw.bucheZusatzleistung(reservierungNr, zusatzleistungNr);
 		gServFuerRes.markiereGastAlsStammkunden(gastNr);
 	}
 
