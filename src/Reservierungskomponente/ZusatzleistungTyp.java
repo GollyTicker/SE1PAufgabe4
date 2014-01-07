@@ -3,44 +3,50 @@ package Reservierungskomponente;
 public class ZusatzleistungTyp {
 
 	private Integer nr;
-	private String leistungsart;
+	private String lstgArt;
 
-	private ZusatzleistungTyp(Integer nr, String leistungsart) {
+	private ZusatzleistungTyp(Integer nr, String lstgArt) {
+		
 		this.nr = nr;
-		this.leistungsart = leistungsart;
+		this.lstgArt = lstgArt;
 	}
 
-	public static ZusatzleistungTyp zusatzleistung(Integer nr, String leistungsart) {
-		return new ZusatzleistungTyp(nr, leistungsart);
+	public static ZusatzleistungTyp zusatzleistung(Integer nr, String lstgArt) {
+		
+		return new ZusatzleistungTyp(nr, lstgArt);
+	}
+
+	public Integer nr() {
+		
+		return nr;
+	}
+
+	public String leistungsart() {
+		
+		return lstgArt;
 	}
 
 	@Override
 	public String toString() {
-		return "Zusatzleistung{nr=" + nr + ", leistungsart=" + leistungsart
-				+ "}";
-	}
-
-	public Integer getNr() {
-		return nr;
-	}
-
-	public String getLeistungsart() {
-		return leistungsart;
+		
+		return "Zusatzleistung{nr=" + nr + ", lstgArt=" + lstgArt + "}";
 	}
 
 	@Override
 	public int hashCode() {
+		
 		long longBits = Double.doubleToLongBits(Double.valueOf(this.nr));
 		return (int) (longBits ^ (longBits >>> 32));
 	}
 
 	@Override
 	public boolean equals(Object obj) {
+		
 		if (this == obj)
 			return true;
 		if (!(obj instanceof ZusatzleistungTyp))
 			return false;
 		ZusatzleistungTyp z = (ZusatzleistungTyp) obj;
-		return z.getNr().compareTo(this.getNr()) == 0;
+		return z.nr().compareTo(this.nr()) == 0;
 	}
 }
