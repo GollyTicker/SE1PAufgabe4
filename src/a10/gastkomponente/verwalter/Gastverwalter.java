@@ -2,9 +2,9 @@ package a10.gastkomponente.verwalter;
 
 import java.sql.ResultSet;
 
-import persistenz.*;
+import persistenz.IPersistenzService;
+import Typen.EmailTyp;
 import a10.gastkomponente.Gast;
-import a10.gastkomponente.Email;
 
 public class Gastverwalter {
 
@@ -63,7 +63,7 @@ public class Gastverwalter {
 		return gast;
 	}
 
-	public Gast erzeugeGast(Integer nr, String name, Email email) {
+	public Gast erzeugeGast(Integer nr, String name, EmailTyp email) {
 
 		try {
 			String query = "insert into gast values(" + nr + ", '" + name
@@ -79,15 +79,15 @@ public class Gastverwalter {
 		return null;
 	}
 
-	public Email emailConvertFromString(String plain) {
+	public EmailTyp emailConvertFromString(String plain) {
 		String[] s = plain.split("(@|\\.)");
 		String name = s[0];
 		String server = s[1];
 		String domain = s[2];
-		return Email.email(name, server, domain);
+		return EmailTyp.email(name, server, domain);
 	}
 
-	public void markiereGastAlsStammkunden(int nr) {
+	public void markiereGastStammkudnaFallsBedingungenErfuellt(int nr) {
 
 		String searchQuery = "select gast_id, count(distinct q.nr) as reservierung, count(distinct z.r_id) as zusatzreservierung "
 				+ "from (select r.gast_id, r.nr from reservierung r "

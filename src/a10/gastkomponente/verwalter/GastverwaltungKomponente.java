@@ -1,7 +1,7 @@
 package a10.gastkomponente.verwalter;
 
 import persistenz.IPersistenzService;
-import a10.gastkomponente.Email;
+import Typen.EmailTyp;
 import a10.gastkomponente.Gast;
 import a10.gastkomponente.IGastServices;
 import a10.gastkomponente.IGastServicesFuerReservierung;
@@ -19,7 +19,7 @@ public class GastverwaltungKomponente implements IGastServices,
 	}
 
 	@Override
-	public Gast erzeugeGast(Integer nr, String name, Email email) {
+	public Gast erzeugeGast(Integer nr, String name, EmailTyp email) {
 		return this.gastVerwaltungAnwendungsfall.erzeugeGast(nr, name, email);
 	}
 

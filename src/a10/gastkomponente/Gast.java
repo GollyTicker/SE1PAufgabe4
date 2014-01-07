@@ -1,13 +1,15 @@
 package a10.gastkomponente;
 
+import Typen.EmailTyp;
+
 public class Gast {
 
 	private Integer nr;
 	private String name;
-	private Email email;
+	private EmailTyp email;
 	private Boolean istStammkunde = false;
 
-	public Gast(Integer nr, String name, Email email, Boolean istStammkunde) {
+	public Gast(Integer nr, String name, EmailTyp email, Boolean istStammkunde) {
 		this.nr = nr;
 		this.name = name;
 		this.email = email;
@@ -36,11 +38,11 @@ public class Gast {
 		this.name = name;
 	}
 
-	public Email getEmail() {
+	public EmailTyp getEmail() {
 		return email;
 	}
 
-	public void setEmail(Email email) {
+	public void setEmail(EmailTyp email) {
 		this.email = email;
 	}
 

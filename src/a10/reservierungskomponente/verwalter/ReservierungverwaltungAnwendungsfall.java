@@ -29,8 +29,9 @@ public class ReservierungverwaltungAnwendungsfall implements
 	public Reservierung reserviereZimmer(Integer gastNr, Integer zimmerNr) {
 		Contract.requires(gastNr != null && gastNr > 0);
 		Contract.requires(zimmerNr != null);
+		Reservierung result = reservierungverwalter.reserviereZimmer(gastNr, zimmerNr);
 		gastServicesFuerReservierung.markiereGastAlsStammkunden(gastNr);
-		return this.reservierungverwalter.reserviereZimmer(gastNr, zimmerNr);
+		return result;
 	}
 
 	@Override

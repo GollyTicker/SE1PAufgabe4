@@ -1,6 +1,6 @@
 package a10;
 
-import a10.gastkomponente.Email;
+import Typen.EmailTyp;
 import a10.gastkomponente.Gast;
 import a10.reservierungskomponente.Reservierung;
 import a10.reservierungskomponente.Zusatzleistung;
@@ -12,15 +12,15 @@ public class Main {
 		// Gast 1
 		Integer nr = 1;
 		String name = "matthias";
-		Email email = Email.email(name, "gmail", "de");
+		EmailTyp email = EmailTyp.email(name, "gmail", "de");
 		// Gast 2
 		Integer nr2 = 2;
 		String name2 = "kai";
-		Email email2 = Email.email(name2, "gmail", "org");
+		EmailTyp email2 = EmailTyp.email(name2, "gmail", "org");
 		// Gast 3
 		Integer nr3 = 3;
 		String name3 = "tree";
-		Email email3 = Email.email(name3, "gmail", "org");
+		EmailTyp email3 = EmailTyp.email(name3, "gmail", "org");
 		
 		BuchungsFassade bf = new BuchungsFassade();
 		bf.erzeugeGast(nr, name, email);

@@ -1,6 +1,6 @@
 package a10.gastkomponente.verwalter;
 
-import a10.gastkomponente.Email;
+import Typen.EmailTyp;
 import a10.gastkomponente.Gast;
 import a10.gastkomponente.IGastServices;
 import a10.gastkomponente.IGastServicesFuerReservierung;
@@ -16,7 +16,7 @@ public class GastverwaltungAnwendungsfall implements IGastServices,
 	}
 
 	@Override
-	public Gast erzeugeGast(Integer nr, String name, Email email) {
+	public Gast erzeugeGast(Integer nr, String name, EmailTyp email) {
 		Contract.requires(email != null);
 		Contract.requires(name != null && name.length() <= 30
 				&& name.length() > 0);
@@ -32,6 +32,6 @@ public class GastverwaltungAnwendungsfall implements IGastServices,
 
 	@Override
 	public void markiereGastAlsStammkunden(Integer nr) {
-		this.gastverwalter.markiereGastAlsStammkunden(nr);
+		this.gastverwalter.markiereGastStammkudnaFallsBedingungenErfuellt(nr);
 	}
 }

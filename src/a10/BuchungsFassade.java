@@ -1,8 +1,8 @@
 package a10;
 
 import persistenz.IPersistenzService;
-import persistenz.SqlConnecter;
-import a10.gastkomponente.Email;
+import persistenz.DatabaseConnection;
+import Typen.EmailTyp;
 import a10.gastkomponente.Gast;
 import a10.gastkomponente.IGastServices;
 import a10.gastkomponente.IGastServicesFuerReservierung;
@@ -12,7 +12,7 @@ import a10.reservierungskomponente.Reservierung;
 import a10.reservierungskomponente.Zusatzleistung;
 import a10.reservierungskomponente.verwalter.ReservierungverwaltungKomponente;
 
-public class BuchungsFassade {
+public class BuchungsFassade implements IBuchungsFassade{
 
 	private IPersistenzService persistenceService;
 	private IGastServices gastService;
@@ -20,7 +20,7 @@ public class BuchungsFassade {
 	private IReservierungServices reservierungService;
 
 	public BuchungsFassade() {
-		this.persistenceService = new SqlConnecter();
+		this.persistenceService = new DatabaseConnection();
 		this.gastService = new GastverwaltungKomponente(persistenceService);
 		this.gastServiceFuerReservierung = new GastverwaltungKomponente(
 				persistenceService);
@@ -46,7 +46,7 @@ public class BuchungsFassade {
 				zusatzleistungNr);
 	}
 
-	public Gast erzeugeGast(Integer nr, String name, Email email) {
+	public Gast erzeugeGast(Integer nr, String name, EmailTyp email) {
 		return gastService.erzeugeGast(nr, name, email);
 	}
 
