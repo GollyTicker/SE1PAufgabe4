@@ -3,40 +3,41 @@
 -- CMD mit Adminrechten ausführen und "startmsql" "tun".
 -- beenden des Servers mit "stopmysql".
 
-DROP TABLE IF EXISTS z2r;
-DROP TABLE IF EXISTS Reservierung;
-DROP TABLE IF EXISTS Zusatzleistung;
-DROP TABLE IF EXISTS Gast;
+drop table if exists z2r;
+drop table if exists Reservierung;
+drop table if exists Zusatzleistung;
+drop table if exists Gast;
 
-CREATE TABLE Gast(
-	Nr INT(2) NOT NULL AUTO_INCREMENT,
-	Name VARCHAR(20),
-	Email VARCHAR(30),
-	IstStammKunde BOOLEAN,
-	PRIMARY KEY(Nr)
+
+create table Gast(
+	Nr int(2) not null AUTO_INCREMENT,
+	Name varchar(20),
+	Email varchar(30),
+	IstStammKunde boolean,
+	primary key(Nr)
 );
 
-CREATE TABLE Reservierung(
-	nr INT(2) NOT NULL AUTO_INCREMENT,
-	PRIMARY KEY(nr),
-	ZimmerNr INT(2),
+create table Reservierung(
+	nr int(2) not null AUTO_INCREMENT,
+	primary key(nr),
+	ZimmerNr int(2),
 	gast_id int(2),
-	FOREIGN KEY (gast_id) REFERENCES gast(nr)
+	foreign key (gast_id) references gast(nr)
 );
 
-CREATE TABLE Zusatzleistung(
-	Nr INT(2) NOT NULL AUTO_INCREMENT,
-	LeistungsArt VARCHAR(30) UNIQUE,
-	PRIMARY KEY (Nr)
+create table Zusatzleistung(
+	Nr int(2) not null AUTO_INCREMENT,
+	LeistungsArt varchar(30) unique,
+	primary key (Nr)
 );
 
 
-CREATE TABLE z2r(
-	id int(2) NOT NULL AUTO_INCREMENT,
+create table z2r(
+	id int(2) not null AUTO_INCREMENT,
 	r_id int(2),
-	FOREIGN KEY (r_id) REFERENCES reservierung(nr),
+	foreign key (r_id) references reservierung(nr),
 	z_id int(2),
-	FOREIGN KEY (z_id) REFERENCES zusatzleistung(nr),
-	PRIMARY KEY(id)
+	foreign key (z_id) references zusatzleistung(nr),
+	primary key(id)
 )
 
