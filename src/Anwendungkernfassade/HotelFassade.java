@@ -5,53 +5,45 @@ import Gastkomponente.GastTyp;
 import Gastkomponente.GastverwaltungKomponente;
 import Persistenz.DatabaseConnection;
 import Persistenz.IPersistenzService;
-import Reservierungskomponente.ReservierungTyp;
-import Reservierungskomponente.ReservierungsKomponente;
-import Reservierungskomponente.ZusatzleistungTyp;
 import Services.IGastServices;
 import Services.IGastServicesFuerReservierung;
 import Services.IReservierungServices;
+import Reservierungskomponente.ReservierungTyp;
+import Reservierungskomponente.ReservierungsKomponente;
+import Reservierungskomponente.ZusatzleistungTyp;
 
-public class HotelFassade implements IHotelFassade{
+public class HotelFassade implements IHotelFassade {
 
-	private IPersistenzService persistenceService;
-	private IGastServices gastService;
-	private IGastServicesFuerReservierung gastServiceFuerReservierung;
-	private IReservierungServices reservierungService;
+	private IPersistenzService perServ;
+	private IGastServices gastServ;
+	private IGastServicesFuerReservierung gServFuerReserv;
+	private IReservierungServices reservServ;
 
 	public HotelFassade() {
-		this.persistenceService = new DatabaseConnection();
-		this.gastService = new GastverwaltungKomponente(persistenceService);
-		this.gastServiceFuerReservierung = new GastverwaltungKomponente(
-				persistenceService);
-		this.reservierungService = new ReservierungsKomponente(
-				persistenceService, this.gastServiceFuerReservierung);
-	}
-
-	public ZusatzleistungTyp erzeugeZusatzleistung(String name) {
-		return reservierungService.erzeugeZusatzleistung(name);
-	}
-
-	public ReservierungTyp reserviereZimmer(Integer gastNr, Integer zimmerNr) {
-		gastServiceFuerReservierung.markiereGastAlsStammkunden(gastNr);
-		return reservierungService.reserviereZimmer(gastNr, zimmerNr);
-	}
-
-	public void bucheZusatzleistung(Integer reservierungNr,
-			Integer zusatzleistungNr) {
-		Integer gastNr = reservierungService
-				.sucheGastNrNachReservierungNr(reservierungNr);
-		gastServiceFuerReservierung.markiereGastAlsStammkunden(gastNr);
-		reservierungService.bucheZusatzleistung(reservierungNr,
-				zusatzleistungNr);
+		this.perServ = new DatabaseConnection();
+		this.gastServ = new GastverwaltungKomponente(perServ);
+		this.gServFuerReserv = new GastverwaltungKomponente(perServ);
+		this.reservServ = new ReservierungsKomponente(perServ,
+				this.gServFuerReserv);
 	}
 
 	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email) {
-		return gastService.erzeugeGast(nr, name, email);
+		return gastServ.erzeugeGast(nr, name, email);
 	}
 
 	public GastTyp sucheGastNachName(String name) {
-		return gastService.sucheGastNachName(name);
+		return gastServ.sucheGastNachName(name);
 	}
 
+	public ZusatzleistungTyp erzeugeZusatzleistung(String zusatzleistungName) {
+		return reservServ.erzeugeZusatzleistung(zusatzleistungName);
+	}
+
+	public ReservierungTyp reserviereZimmer(Integer gastNr, Integer zNr) {
+		return reservServ.reserviereZimmer(gastNr, zNr);
+	}
+
+	public void bucheZusatzleistung(Integer reservNr, Integer zlNr) {
+		reservServ.bucheZusatzleistung(reservNr, zlNr);
+	}
 }
