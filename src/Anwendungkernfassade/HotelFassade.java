@@ -6,7 +6,7 @@ import Gastkomponente.GastverwaltungKomponente;
 import Persistenz.DatabaseConnection;
 import Persistenz.IPersistenzService;
 import Reservierungskomponente.ReservierungTyp;
-import Reservierungskomponente.ReservierungverwaltungKomponente;
+import Reservierungskomponente.ReservierungsKomponente;
 import Reservierungskomponente.ZusatzleistungTyp;
 import Services.IGastServices;
 import Services.IGastServicesFuerReservierung;
@@ -24,7 +24,7 @@ public class HotelFassade implements IHotelFassade{
 		this.gastService = new GastverwaltungKomponente(persistenceService);
 		this.gastServiceFuerReservierung = new GastverwaltungKomponente(
 				persistenceService);
-		this.reservierungService = new ReservierungverwaltungKomponente(
+		this.reservierungService = new ReservierungsKomponente(
 				persistenceService, this.gastServiceFuerReservierung);
 	}
 

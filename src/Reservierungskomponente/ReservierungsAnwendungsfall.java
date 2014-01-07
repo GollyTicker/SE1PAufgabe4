@@ -39,9 +39,9 @@ public class ReservierungsAnwendungsfall implements
 		Precondition.requires(reservierungNr != null && reservierungNr > 0);
 		Integer gastNr = reservierungverwalter
 				.sucheGastNrNachReservierungNr(reservierungNr);
-		gastServicesFuerReservierung.markiereGastAlsStammkunden(gastNr);
 		this.reservierungverwalter.bucheZusatzleistung(reservierungNr,
 				zusatzleistungNr);
+		gastServicesFuerReservierung.markiereGastAlsStammkunden(gastNr);
 	}
 
 	@Override

@@ -4,12 +4,12 @@ import Persistenz.IPersistenzService;
 import Services.IGastServicesFuerReservierung;
 import Services.IReservierungServices;
 
-public class ReservierungverwaltungKomponente implements IReservierungServices {
+public class ReservierungsKomponente implements IReservierungServices {
 
 	private Reservierungverwalter resVerwalter = null;
 	private ReservierungsAnwendungsfall resVerwaltungAnwendungsfall = null;
 
-	public ReservierungverwaltungKomponente(
+	public ReservierungsKomponente(
 			IPersistenzService persistenceManager,
 			IGastServicesFuerReservierung gastServicesFuerReservierung) {
 		resVerwalter = new Reservierungverwalter(persistenceManager);

@@ -30,6 +30,6 @@ public class GastAnwendungsfall implements IGastServices,
 
 	@Override
 	public void markiereGastAlsStammkunden(Integer nr) {
-		this.gastverwalter.markiereGastStammkudnaFallsBedingungenErfuellt(nr);
+		this.gastverwalter.markiereGastStammkundeFallsBedingungenErfuellt(nr);
 	}
 }

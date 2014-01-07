@@ -1,8 +1,5 @@
 package Tests;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -11,7 +8,7 @@ import org.junit.Test;
 
 import Anwendungkernfassade.HotelFassade;
 import Anwendungkernfassade.IHotelFassade;
-import Gastkomponente.EmailTyp;
+import static Gastkomponente.EmailTyp.email;
 import Gastkomponente.GastTyp;
 import Reservierungskomponente.ReservierungTyp;
 import Reservierungskomponente.ZusatzleistungTyp;
@@ -19,60 +16,66 @@ import Reservierungskomponente.ZusatzleistungTyp;
 public class BlackBoxTestHotelFassade {
 
 	private IHotelFassade hotelFassade;
+	private int zNr;
+	private ZusatzleistungTyp wlan;
 
 	@Before
 	public void setUp() {
 		this.hotelFassade = new HotelFassade();
-		createGuests();
+
+		hotelFassade.erzeugeGast(1, "Steffen", email("st", "hw", "de"));
+
+		hotelFassade.erzeugeGast(2, "Swaneet", email("sw", "hw", "de"));
+
+		hotelFassade.erzeugeGast(3, "Flasche", email("ab", "cd", "de"));
+
+		zNr = 0;
+		wlan = hotelFassade.erzeugeZusatzleistung("WLAN");
 	}
 
-	
 	@Test
 	public void testIntegration() {
 
-		GastTyp matze = hotelFassade.sucheGastNachName("matthias");
-		GastTyp kai = hotelFassade.sucheGastNachName("kai");
-		GastTyp tree = hotelFassade.sucheGastNachName("tree");
+		GastTyp steffen = hotelFassade.sucheGastNachName("Steffen");
+		GastTyp swaneet = hotelFassade.sucheGastNachName("Swaneet");
+		GastTyp flasche = hotelFassade.sucheGastNachName("Flasche");
 
-		assertTrue(matze != null);
-		assertTrue(kai != null);
-		assertTrue(tree != null);
-		assertFalse(matze.istStammkunde());
-		assertFalse(matze.istStammkunde());
-		assertFalse(matze.istStammkunde());
+		assertTrue(hotelFassade.sucheGastNachName("nichtDrinnen!!") == null);
+		assertNotNull(steffen);
+		assertNotNull(swaneet);
+		assertNotNull(flasche);
+		assertFalse(steffen.istStammkunde());
+		assertFalse(steffen.istStammkunde());
+		assertFalse(steffen.istStammkunde());
 
-		ZusatzleistungTyp sauna = hotelFassade.erzeugeZusatzleistung("Sauna");
-		ZusatzleistungTyp vollpension = hotelFassade
-				.erzeugeZusatzleistung("Vollpension");
-		ZusatzleistungTyp wlan = hotelFassade.erzeugeZusatzleistung("WLAN");
-
-		for (int zimmerNr = 1; zimmerNr < 10; zimmerNr++) {
-			ReservierungTyp res = hotelFassade.reserviereZimmer(matze.getNr(),
-					zimmerNr);
-			hotelFassade.bucheZusatzleistung(res.getNr(), sauna.getNr());
-			hotelFassade.bucheZusatzleistung(res.getNr(),
-					vollpension.getNr());
+		for (int i = 1; i <= 2; i++) {
+			ReservierungTyp res = hotelFassade.reserviereZimmer(
+					steffen.getNr(), zimmerNr());
 			hotelFassade.bucheZusatzleistung(res.getNr(), wlan.getNr());
 		}
 
-		for (int zimmerNr = 11; zimmerNr < 15; zimmerNr++) {
-			ReservierungTyp res = hotelFassade.reserviereZimmer(kai.getNr(),
-					zimmerNr);
-			hotelFassade.bucheZusatzleistung(res.getNr(), sauna.getNr());
+		for (int i = 1; i <= 3; i++) {
+			ReservierungTyp res = hotelFassade.reserviereZimmer(
+					swaneet.getNr(), zimmerNr());
+			hotelFassade.bucheZusatzleistung(res.getNr(), wlan.getNr());
 		}
 
-		hotelFassade.reserviereZimmer(tree.getNr(), 20);
+		for (int i = 1; i <= 5; i++) {
+			hotelFassade.reserviereZimmer(flasche.getNr(), zimmerNr());
+		}
 
-		matze = hotelFassade.sucheGastNachName("matthias");
-		kai = hotelFassade.sucheGastNachName("kai");
-		tree = hotelFassade.sucheGastNachName("tree");
+		steffen = hotelFassade.sucheGastNachName("Steffen");
+		swaneet = hotelFassade.sucheGastNachName("Swaneet");
+		flasche = hotelFassade.sucheGastNachName("Flasche");
+		
+		assertFalse(steffen.istStammkunde());
+		assertTrue(swaneet.istStammkunde());
+		assertFalse(flasche.istStammkunde());
+		
 
-		assertTrue(matze != null);
-		assertTrue(kai != null);
-		assertTrue(tree != null);
-		assertTrue(matze.istStammkunde());
-		assertTrue(kai.istStammkunde());
-		assertFalse(tree.istStammkunde());
+		hotelFassade.reserviereZimmer(flasche.getNr(), zimmerNr());
+		flasche = hotelFassade.sucheGastNachName("Flasche");
+		assertTrue(flasche.istStammkunde());
 	}
 
 	@After
@@ -80,20 +83,8 @@ public class BlackBoxTestHotelFassade {
 		hotelFassade = null;
 	}
 
-	private void createGuests() {
-		ArrayList<ArrayList<Object>> guests = new ArrayList<ArrayList<Object>>(
-				Arrays.asList(createList(1, "matthias"), createList(2, "kai"),
-						createList(3, "tree")));
-		for (ArrayList<Object> g : guests) {
-			Integer nr = (int) g.get(0);
-			String name = String.valueOf(g.get(1));
-			EmailTyp email = (EmailTyp) g.get(2);
-			hotelFassade.erzeugeGast(nr, name, email);
-		}
-	}
-
-	private ArrayList<Object> createList(Integer nr, String name) {
-		return new ArrayList<Object>(Arrays.asList(nr, name,
-				EmailTyp.email(name, "gmail", "com")));
+	private int zimmerNr() {
+		zNr += 1;
+		return zNr;
 	}
 }

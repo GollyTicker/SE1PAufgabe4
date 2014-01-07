@@ -12,37 +12,12 @@ public class Gastverwalter {
 		this.persistenzService = persistenzService;
 	}
 
-	public GastTyp sucheGastNachNr(Integer id) {
-		// look by the name
-		ResultSet rs = persistenzService.read(String.valueOf(id), "gast",
-				"name");
-
-		String email = "";
-		Integer nr = 0;
-		String name_ = "";
-		boolean stamm = false;
-		try {
-			while (rs.next()) {
-				email = (rs.getString("Email"));
-				name_ = rs.getString("name");
-				nr = (rs.getInt(("Nr")));
-				stamm = (rs.getBoolean("IstStammkunde"));
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		GastTyp gast = gast(nr, name_, emailConvertFromString(email), stamm);
-		System.out.println(gast);
-		return gast;
-	}
-
 	public GastTyp sucheGastNachName(String name) {
 		// look by the name
 		ResultSet rs = persistenzService.read(name, "gast", "name");
 
 		String email = "";
-		Integer nr = 0;
+		Integer nr = -1;
 		String name_ = "";
 		boolean stamm = false;
 		try {
@@ -51,14 +26,12 @@ public class Gastverwalter {
 				name_ = rs.getString("name");
 				nr = (rs.getInt(("Nr")));
 				stamm = (rs.getBoolean("IstStammkunde"));
-
+				return gast(nr, name_, emailConvertFromString(email), stamm);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		GastTyp gast = gast(nr, name_, emailConvertFromString(email), stamm);
-		System.out.println(gast);
-		return gast;
+		return null;
 	}
 
 	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email) {
@@ -85,40 +58,49 @@ public class Gastverwalter {
 		return EmailTyp.email(name, server, domain);
 	}
 
-	public void markiereGastStammkudnaFallsBedingungenErfuellt(int nr) {
+	public void markiereGastStammkundeFallsBedingungenErfuellt(int gastNr) {
 
 		String searchQuery = "select gast_id, count(distinct q.nr) as reservierung, count(distinct z.r_id) as zusatzreservierung "
 				+ "from (select r.gast_id, r.nr from reservierung r "
 				+ "where gast_id= "
-				+ nr
+				+ gastNr
 				+ " "
-				+ "group by nr )q "
+				+ "group by nr ) q "
 				+ "inner join z2r z on z.r_id = q.nr";
+		
+		String reservierungenQuery = "select count(distinct res.nr) as reservierung"
+				+ " from ( select gast_id, nr from reservierung where gast_id="+ gastNr
+				+ " ) res;";
+		
+
+		String reservierungenZusatzQuery = "select count(distinct res.nr) as zusatzreservierung "
+				+ "from (select nr from z2r,"
+				+ "reservierung r where gast_id="+ gastNr
+				+ " and z2r.r_id=r.nr group by nr) res;";
 
 		String updateQuery = "update gast set IstStammkunde = true where nr = "
-				+ nr + ";";
+				+ gastNr + ";";
 
-		ResultSet rs = persistenzService.readPlainSql(searchQuery);
-		int zusatzreservierung = 0;
-		int reservierung = 0;
+		ResultSet rs = persistenzService.readPlainSql(reservierungenQuery);
+		ResultSet rs2 = persistenzService.readPlainSql(reservierungenZusatzQuery);
 
 		try {
 			while (rs.next()) {
-				zusatzreservierung = (rs.getInt("zusatzreservierung"));
-				reservierung = rs.getInt("reservierung");
-				System.out.println(rs.getInt("reservierung"));
-				System.out.println(rs.getInt("zusatzreservierung"));
-
+				
+				if (rs.getInt("reservierung") >= 6) {
+					persistenzService.writePlainSql(updateQuery);
+					System.out.println("That dude with id " + gastNr + " is eligible!");
+				}
+			}
+			while (rs2.next()) {
+				
+				if (rs2.getInt("zusatzreservierung") >= 3) {
+					persistenzService.writePlainSql(updateQuery);
+					System.out.println("That dude with id " + gastNr + " is eligible!");
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-
-		if (zusatzreservierung > 2 || reservierung > 4) {
-			persistenzService.writePlainSql(updateQuery);
-			System.out.println("That dude with id " + nr + " is eligible!");
-		} else {
-			System.out.println("That dude with id " + nr + " is not eligibe!");
 		}
 	}
 

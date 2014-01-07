@@ -80,7 +80,6 @@ public class DatabaseConnection implements IPersistenzService {
 
 	public void create(String query) {
 		try {
-
 			preparedStatement = connect.prepareStatement(query);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
