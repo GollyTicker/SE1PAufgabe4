@@ -6,17 +6,17 @@ import a10.reservierungskomponente.IReservierungServices;
 import a10.reservierungskomponente.Reservierung;
 import a10.reservierungskomponente.Zusatzleistung;
 
-public class ReservierungverwaltungKomponente implements IReservierungServices,
-		IGastServicesFuerReservierung {
+public class ReservierungverwaltungKomponente implements IReservierungServices {
 
 	private Reservierungverwalter resVerwalter = null;
 	private ReservierungverwaltungAnwendungsfall resVerwaltungAnwendungsfall = null;
 
 	public ReservierungverwaltungKomponente(
-			IPersistenzService persistenceManager) {
+			IPersistenzService persistenceManager,
+			IGastServicesFuerReservierung gastServicesFuerReservierung) {
 		resVerwalter = new Reservierungverwalter(persistenceManager);
 		resVerwaltungAnwendungsfall = new ReservierungverwaltungAnwendungsfall(
-				resVerwalter);
+				resVerwalter, gastServicesFuerReservierung);
 	}
 
 	@Override
@@ -36,15 +36,11 @@ public class ReservierungverwaltungKomponente implements IReservierungServices,
 		this.resVerwaltungAnwendungsfall.bucheZusatzleistung(reservierungNr,
 				zusatzleistungNr);
 	}
-
-	@Override
-	public void markiereGastAlsStammkunden(Integer nr) {
-		this.resVerwaltungAnwendungsfall.markiereGastAlsStammkunden(nr);
-	}
-
+	
 	@Override
 	public Integer sucheGastNrNachReservierungNr(Integer reservierungNr) {
-		return this.resVerwaltungAnwendungsfall.sucheGastNrNachReservierungNr(reservierungNr);
+		return this.resVerwaltungAnwendungsfall
+				.sucheGastNrNachReservierungNr(reservierungNr);
 	}
 
 }

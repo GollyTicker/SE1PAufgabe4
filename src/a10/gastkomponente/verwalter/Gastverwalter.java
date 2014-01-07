@@ -12,7 +12,6 @@ public class Gastverwalter {
 
 	public Gastverwalter(IPersistenzService persistenzService) {
 		this.persistenzService = persistenzService;
-
 	}
 
 	public Gast sucheGastNachNr(Integer id) {
@@ -86,6 +85,43 @@ public class Gastverwalter {
 		String server = s[1];
 		String domain = s[2];
 		return Email.email(name, server, domain);
+	}
+
+	public void markiereGastAlsStammkunden(int nr) {
+
+		String searchQuery = "select gast_id, count(distinct q.nr) as reservierung, count(distinct z.r_id) as zusatzreservierung "
+				+ "from (select r.gast_id, r.nr from reservierung r "
+				+ "where gast_id= "
+				+ nr
+				+ " "
+				+ "group by nr )q "
+				+ "inner join z2r z on z.r_id = q.nr";
+
+		String updateQuery = "update gast set IstStammkunde = true where nr = "
+				+ nr + ";";
+
+		ResultSet rs = persistenzService.readPlainSql(searchQuery);
+		int zusatzreservierung = 0;
+		int reservierung = 0;
+
+		try {
+			while (rs.next()) {
+				zusatzreservierung = (rs.getInt("zusatzreservierung"));
+				reservierung = rs.getInt("reservierung");
+				System.out.println(rs.getInt("reservierung"));
+				System.out.println(rs.getInt("zusatzreservierung"));
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (zusatzreservierung > 2 || reservierung > 4) {
+			persistenzService.writePlainSql(updateQuery);
+			System.out.println("That dude with id " + nr + " is eligible!");
+		} else {
+			System.out.println("That dude with id " + nr + " is not eligibe!");
+		}
 	}
 
 }

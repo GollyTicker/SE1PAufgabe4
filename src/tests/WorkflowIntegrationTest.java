@@ -9,8 +9,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistenz.IPersistenzService;
-import persistenz.SqlConnecter;
 import a10.BuchungsFassade;
 import a10.gastkomponente.Email;
 import a10.gastkomponente.Gast;
@@ -19,32 +17,17 @@ import a10.reservierungskomponente.Zusatzleistung;
 
 public class WorkflowIntegrationTest {
 
-	private ArrayList<Object> gast1, gast2, gast3;
-	private ArrayList<ArrayList<Object>> guests = new ArrayList<ArrayList<Object>>();
 	private BuchungsFassade buchungsFassade;
-	private IPersistenzService persistenceService = new SqlConnecter();
 
 	@Before
 	public void setUp() {
-		this.buchungsFassade = new BuchungsFassade(persistenceService);
-		this.gast1 = createList(1, "matthias");
-		this.gast2 = createList(2, "kai");
-		this.gast3 = createList(3, "tree");
-		this.guests.add(gast1);
-		this.guests.add(gast2);
-		this.guests.add(gast3);
+		this.buchungsFassade = new BuchungsFassade();
+		createGuests();
 	}
 
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testIntegration() {
-
-		for (ArrayList<Object> g : guests) {
-			Integer nr = (int) g.get(0);
-			String name = String.valueOf(g.get(1));
-			Email email = (Email) g.get(2);
-			buchungsFassade.erzeugeGast(nr, name, email);
-		}
 
 		Gast matze = buchungsFassade.sucheGastNachName("matthias");
 		Gast kai = buchungsFassade.sucheGastNachName("kai");
@@ -89,18 +72,27 @@ public class WorkflowIntegrationTest {
 		assertTrue(matze.istStammkunde());
 		assertTrue(kai.istStammkunde());
 		assertFalse(tree.istStammkunde());
-
 	}
 
 	@After
 	public void tearDown() {
-		persistenceService = null;
 		buchungsFassade = null;
+	}
+
+	private void createGuests() {
+		ArrayList<ArrayList<Object>> guests = new ArrayList<ArrayList<Object>>(
+				Arrays.asList(createList(1, "matthias"), createList(2, "kai"),
+						createList(3, "tree")));
+		for (ArrayList<Object> g : guests) {
+			Integer nr = (int) g.get(0);
+			String name = String.valueOf(g.get(1));
+			Email email = (Email) g.get(2);
+			buchungsFassade.erzeugeGast(nr, name, email);
+		}
 	}
 
 	private ArrayList<Object> createList(Integer nr, String name) {
 		return new ArrayList<Object>(Arrays.asList(nr, name,
 				Email.email(name, "gmail", "com")));
-
 	}
 }

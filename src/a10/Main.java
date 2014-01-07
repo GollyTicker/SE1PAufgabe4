@@ -1,7 +1,5 @@
 package a10;
 
-import persistenz.IPersistenzService;
-import persistenz.SqlConnecter;
 import a10.gastkomponente.Email;
 import a10.gastkomponente.Gast;
 import a10.reservierungskomponente.Reservierung;
@@ -23,10 +21,8 @@ public class Main {
 		Integer nr3 = 3;
 		String name3 = "tree";
 		Email email3 = Email.email(name3, "gmail", "org");
-
-		IPersistenzService persistenceService = new SqlConnecter();
 		
-		BuchungsFassade bf = new BuchungsFassade(persistenceService);
+		BuchungsFassade bf = new BuchungsFassade();
 		bf.erzeugeGast(nr, name, email);
 		bf.erzeugeGast(nr2, name2, email2);
 		bf.erzeugeGast(nr3, name3, email3);

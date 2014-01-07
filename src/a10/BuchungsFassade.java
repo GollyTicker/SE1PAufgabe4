@@ -19,13 +19,13 @@ public class BuchungsFassade {
 	private IGastServicesFuerReservierung gastServiceFuerReservierung;
 	private IReservierungServices reservierungService;
 
-	public BuchungsFassade(IPersistenzService persistenceService) {
-		this.persistenceService = persistenceService;
+	public BuchungsFassade() {
+		this.persistenceService = new SqlConnecter();
 		this.gastService = new GastverwaltungKomponente(persistenceService);
+		this.gastServiceFuerReservierung = new GastverwaltungKomponente(
+				persistenceService);
 		this.reservierungService = new ReservierungverwaltungKomponente(
-				persistenceService);
-		this.gastServiceFuerReservierung = new ReservierungverwaltungKomponente(
-				persistenceService);
+				persistenceService, this.gastServiceFuerReservierung);
 	}
 
 	public Zusatzleistung erzeugeZusatzleistung(String name) {

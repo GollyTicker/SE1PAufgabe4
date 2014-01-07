@@ -30,10 +30,11 @@ public class ReservierungsKomponenteTest {
 	@Before
 	public void setUp() {
 		this.gastService = new GastverwaltungKomponente(persistenceService);
+		this.gastServiceFuerReservierung = new GastverwaltungKomponente(
+				persistenceService);
 		this.reservierungService = new ReservierungverwaltungKomponente(
-				persistenceService);
-		this.gastServiceFuerReservierung = new ReservierungverwaltungKomponente(
-				persistenceService);
+				persistenceService, this.gastServiceFuerReservierung);
+
 		this.matze = gastService.erzeugeGast(1, "matthias",
 				Email.email("matthias", "gmail", "de"));
 		this.kai = gastService.erzeugeGast(2, "kai",
@@ -51,7 +52,7 @@ public class ReservierungsKomponenteTest {
 
 		matze = gastService.sucheGastNachName("matthias");
 		kai = gastService.sucheGastNachName("kai");
-		
+
 		assertFalse(matze.istStammkunde());
 		assertFalse(kai.istStammkunde());
 
