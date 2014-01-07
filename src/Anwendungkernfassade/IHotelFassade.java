@@ -1,11 +1,11 @@
-package a10;
+package Anwendungkernfassade;
 
 import Typen.EmailTyp;
 import a10.gastkomponente.Gast;
 import a10.reservierungskomponente.Reservierung;
 import a10.reservierungskomponente.Zusatzleistung;
 
-public interface IBuchungsFassade {
+public interface IHotelFassade {
 	
 	public Zusatzleistung erzeugeZusatzleistung(String name);
 

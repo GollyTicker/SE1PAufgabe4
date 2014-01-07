@@ -9,20 +9,20 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import Anwendungkernfassade.HotelFassade;
+import Anwendungkernfassade.IHotelFassade;
 import Typen.EmailTyp;
-import a10.BuchungsFassade;
-import a10.IBuchungsFassade;
 import a10.gastkomponente.Gast;
 import a10.reservierungskomponente.Reservierung;
 import a10.reservierungskomponente.Zusatzleistung;
 
 public class WorkflowIntegrationTest {
 
-	private IBuchungsFassade buchungsFassade;
+	private IHotelFassade buchungsFassade;
 
 	@Before
 	public void setUp() {
-		this.buchungsFassade = new BuchungsFassade();
+		this.buchungsFassade = new HotelFassade();
 		createGuests();
 	}
 

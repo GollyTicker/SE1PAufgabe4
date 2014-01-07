@@ -1,4 +1,4 @@
-package a10;
+package Anwendungkernfassade;
 
 import persistenz.IPersistenzService;
 import persistenz.DatabaseConnection;
@@ -12,14 +12,14 @@ import a10.reservierungskomponente.Reservierung;
 import a10.reservierungskomponente.Zusatzleistung;
 import a10.reservierungskomponente.verwalter.ReservierungverwaltungKomponente;
 
-public class BuchungsFassade implements IBuchungsFassade{
+public class HotelFassade implements IHotelFassade{
 
 	private IPersistenzService persistenceService;
 	private IGastServices gastService;
 	private IGastServicesFuerReservierung gastServiceFuerReservierung;
 	private IReservierungServices reservierungService;
 
-	public BuchungsFassade() {
+	public HotelFassade() {
 		this.persistenceService = new DatabaseConnection();
 		this.gastService = new GastverwaltungKomponente(persistenceService);
 		this.gastServiceFuerReservierung = new GastverwaltungKomponente(
