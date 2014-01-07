@@ -34,7 +34,7 @@ public class BlackBoxTestHotelFassade {
 		GastTyp swaneet = hotelFassade.sucheGastNachName("Swaneet");
 		GastTyp flasche = hotelFassade.sucheGastNachName("Flasche");
 
-		assertNull(hotelFassade.sucheGastNachName("can't Touch Me"));
+		assertNull(hotelFassade.sucheGastNachName("cant Touch Me"));
 		assertNotNull(steffen);
 		assertNotNull(swaneet);
 		assertNotNull(flasche);
