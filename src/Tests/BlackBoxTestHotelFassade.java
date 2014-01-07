@@ -51,13 +51,13 @@ public class BlackBoxTestHotelFassade {
 		for (int i = 1; i <= 2; i++) {
 			ReservierungTyp res = hotelFassade.reserviereZimmer(
 					steffen.getNr(), zimmerNr());
-			hotelFassade.bucheZusatzleistung(res.getNr(), wlan.getNr());
+			hotelFassade.bucheZusatzleistung(res.nr(), wlan.nr());
 		}
 
 		for (int i = 1; i <= 3; i++) {
 			ReservierungTyp res = hotelFassade.reserviereZimmer(
 					swaneet.getNr(), zimmerNr());
-			hotelFassade.bucheZusatzleistung(res.getNr(), wlan.getNr());
+			hotelFassade.bucheZusatzleistung(res.nr(), wlan.nr());
 		}
 
 		for (int i = 1; i <= 5; i++) {
