@@ -3,21 +3,22 @@ package tests;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import Typen.EmailTyp;
 import a10.BuchungsFassade;
-import a10.gastkomponente.Email;
+import a10.IBuchungsFassade;
 import a10.gastkomponente.Gast;
 import a10.reservierungskomponente.Reservierung;
 import a10.reservierungskomponente.Zusatzleistung;
 
 public class WorkflowIntegrationTest {
 
-	private BuchungsFassade buchungsFassade;
+	private IBuchungsFassade buchungsFassade;
 
 	@Before
 	public void setUp() {
@@ -25,7 +26,7 @@ public class WorkflowIntegrationTest {
 		createGuests();
 	}
 
-	@SuppressWarnings("deprecation")
+	
 	@Test
 	public void testIntegration() {
 
@@ -86,13 +87,13 @@ public class WorkflowIntegrationTest {
 		for (ArrayList<Object> g : guests) {
 			Integer nr = (int) g.get(0);
 			String name = String.valueOf(g.get(1));
-			Email email = (Email) g.get(2);
+			EmailTyp email = (EmailTyp) g.get(2);
 			buchungsFassade.erzeugeGast(nr, name, email);
 		}
 	}
 
 	private ArrayList<Object> createList(Integer nr, String name) {
 		return new ArrayList<Object>(Arrays.asList(nr, name,
-				Email.email(name, "gmail", "com")));
+				EmailTyp.email(name, "gmail", "com")));
 	}
 }

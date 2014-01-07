@@ -8,16 +8,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import a10.gastkomponente.Email;
+import Typen.EmailTyp;
 
-public class SqlConnecter implements IPersistenzService {
+public class DatabaseConnection implements IPersistenzService {
 
 	private Connection connect = null;
 	private Statement statement = null;
 	private ResultSet resultSet = null;
 	private PreparedStatement preparedStatement = null;
 
-	public SqlConnecter() {
+	public DatabaseConnection() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			this.connect = DriverManager
@@ -70,12 +70,12 @@ public class SqlConnecter implements IPersistenzService {
 		return null;
 	}
 
-	public Email emailConvertFromString(String plain) {
+	public EmailTyp emailConvertFromString(String plain) {
 		String[] s = plain.split("(@|\\.)");
 		String name = s[0];
 		String server = s[1];
 		String domain = s[2];
-		return Email.email(name, server, domain);
+		return EmailTyp.email(name, server, domain);
 	}
 
 	public void create(String query) {

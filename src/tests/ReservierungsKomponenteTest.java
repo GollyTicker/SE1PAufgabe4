@@ -1,14 +1,14 @@
 package tests;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import persistenz.IPersistenzService;
-import persistenz.SqlConnecter;
-import a10.gastkomponente.Email;
+import persistenz.DatabaseConnection;
+import Typen.EmailTyp;
 import a10.gastkomponente.Gast;
 import a10.gastkomponente.IGastServices;
 import a10.gastkomponente.IGastServicesFuerReservierung;
@@ -20,7 +20,7 @@ import a10.reservierungskomponente.verwalter.ReservierungverwaltungKomponente;
 
 public class ReservierungsKomponenteTest {
 
-	private IPersistenzService persistenceService = new SqlConnecter();
+	private IPersistenzService persistenceService = new DatabaseConnection();
 	private IGastServices gastService;
 	private IReservierungServices reservierungService;
 	private IGastServicesFuerReservierung gastServiceFuerReservierung;
@@ -36,9 +36,9 @@ public class ReservierungsKomponenteTest {
 				persistenceService, this.gastServiceFuerReservierung);
 
 		this.matze = gastService.erzeugeGast(1, "matthias",
-				Email.email("matthias", "gmail", "de"));
+				EmailTyp.email("matthias", "gmail", "de"));
 		this.kai = gastService.erzeugeGast(2, "kai",
-				Email.email("kai", "gmail", "de"));
+				EmailTyp.email("kai", "gmail", "de"));
 
 		this.sauna = reservierungService.erzeugeZusatzleistung("Sauna");
 		this.vollpension = reservierungService
@@ -46,7 +46,7 @@ public class ReservierungsKomponenteTest {
 		this.wlan = reservierungService.erzeugeZusatzleistung("WLAN");
 	}
 
-	@SuppressWarnings("deprecation")
+	
 	@Test
 	public void testReservierung() {
 
