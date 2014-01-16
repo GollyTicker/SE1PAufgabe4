@@ -28,7 +28,7 @@ public class BlackBoxTestHotelFassade {
 	}
 
 	@Test
-	public void testIntegration() {
+	public void testBlackBoxHotel() {
 
 		GastTyp steffen = hotelFassade.sucheGastNachName("Steffen");
 		GastTyp swaneet = hotelFassade.sucheGastNachName("Swaneet");
@@ -39,8 +39,8 @@ public class BlackBoxTestHotelFassade {
 		assertNotNull(swaneet);
 		assertNotNull(flasche);
 		assertFalse(steffen.istStammkunde());
-		assertFalse(steffen.istStammkunde());
-		assertFalse(steffen.istStammkunde());
+		assertFalse(swaneet.istStammkunde());
+		assertFalse(flasche.istStammkunde());
 		
 		// steffen macht nicht genügend reservierungen mit zusatzleistungen
 		for (int i = 1; i <= 2; i++) {
@@ -54,7 +54,7 @@ public class BlackBoxTestHotelFassade {
 					swaneet.nr(), zimmerNr());
 			hotelFassade.bucheZusatzleistung(res.nr(), wlan.nr());
 		}
-		// flasche macht eine reservierung zu wenig um stammkunde zu sein
+		// flasche macht eine reservierung. zu wenig um stammkunde zu sein
 		for (int i = 1; i <= 5; i++) {
 			hotelFassade.reserviereZimmer(flasche.nr(), zimmerNr());
 		}
@@ -67,15 +67,10 @@ public class BlackBoxTestHotelFassade {
 		assertTrue(swaneet.istStammkunde());
 		assertFalse(flasche.istStammkunde());
 		
-		// jetzt hat flash genügend reservierungen
+		// jetzt hat flasch genügend reservierungen
 		hotelFassade.reserviereZimmer(flasche.nr(), zimmerNr());
 		flasche = hotelFassade.sucheGastNachName("Flasche");
 		assertTrue(flasche.istStammkunde());
-	}
-
-	@After
-	public void tearDown() {
-		hotelFassade = null;
 	}
 	
 	// gibt immer eine neue zimmerNr zurück

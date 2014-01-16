@@ -18,66 +18,64 @@ import Services.IReservierungServices;
 
 public class ReservierungsTest {
 
-	private IPersistenzService persistenceService;
-	private IGastServices gastService;
-	private IReservierungServices reservierungService;
-	private IGastServicesFuerReservierung gastServiceFuerReservierung;
+	private IPersistenzService pServ;
+	private IGastServices gastServ;
+	private IReservierungServices resvServ;
+	private IGastServicesFuerReservierung gastServFuerResrv;
 	private GastTyp swaneet, steffen;
 	private ZusatzleistungTyp wlan, balkon;
+	private int zNr;
 
 	@Before
 	public void setUp() {
-		this.persistenceService = new DatabaseConnection();
-		this.gastService = new GastverwaltungKomponente(persistenceService);
-		this.gastServiceFuerReservierung = new GastverwaltungKomponente(
-				persistenceService);
-		this.reservierungService = new ReservierungsKomponente(
-				persistenceService, this.gastServiceFuerReservierung);
+		this.pServ = new DatabaseConnection();
+		this.gastServ = new GastverwaltungKomponente(pServ);
+		this.gastServFuerResrv = new GastverwaltungKomponenteDummy(pServ);
+		this.resvServ = new ReservierungsKomponente(pServ,
+				this.gastServFuerResrv);
 
-		this.swaneet = gastService.erzeugeGast(1, "Swaneet",
-					email("swaneet", "hawhamburg", "de"));
-		this.steffen = gastService.erzeugeGast(2, "Steffen",
+		// create guests and zusatzleistungen for testing
+		this.swaneet = gastServ.erzeugeGast(1, "Swaneet",
+				email("swaneet", "hawhamburg", "de"));
+		this.steffen = gastServ.erzeugeGast(2, "Steffen",
 				email("steffer", "hawhamburg", "de"));
-		
-		this.wlan = reservierungService.erzeugeZusatzleistung("WLAN");
-		this.balkon = reservierungService
-				.erzeugeZusatzleistung("balkon");
+
+		this.wlan = resvServ.erzeugeZusatzleistung("WLAN");
+		this.balkon = resvServ.erzeugeZusatzleistung("balkon");
+		zNr = 0;
 	}
 
-	
 	@Test
-	public void testReservierung() {
+	public void testReservierungIsolated() {
 
-		swaneet = gastService.sucheGastNachName("Swaneet");
-		steffen = gastService.sucheGastNachName("Steffen");
+		swaneet = gastServ.sucheGastNachName("Swaneet");
+		steffen = gastServ.sucheGastNachName("Steffen");
 
 		assertFalse(swaneet.istStammkunde());
 		assertFalse(steffen.istStammkunde());
 
+		// swaneet macht drei reservierungen mit zusatzleistung
 		for (int i = 1; i <= 3; i++) {
-			ReservierungTyp res = reservierungService.reserviereZimmer(
-					swaneet.nr(), i);
-			reservierungService.bucheZusatzleistung(res.nr(),
-					balkon.nr());
-			reservierungService.bucheZusatzleistung(res.nr(), wlan.nr());
+			ReservierungTyp res = resvServ.reserviereZimmer(swaneet.nr(),
+					zimmerNr());
+			resvServ.bucheZusatzleistung(res.nr(), balkon.nr());
+			resvServ.bucheZusatzleistung(res.nr(), wlan.nr());
 		}
 
-		ReservierungTyp res = reservierungService
-				.reserviereZimmer(steffen.nr(), 0);
-		reservierungService.bucheZusatzleistung(res.nr(), wlan.nr());
-		
-		swaneet = gastService.sucheGastNachName("Swaneet");
-		steffen = gastService.sucheGastNachName("Steffen");
+		ReservierungTyp res = resvServ.reserviereZimmer(steffen.nr(),
+				zimmerNr());
+		resvServ.bucheZusatzleistung(res.nr(), wlan.nr());
+
+		swaneet = gastServ.sucheGastNachName("Swaneet");
+		steffen = gastServ.sucheGastNachName("Steffen");
 
 		assertTrue(swaneet.istStammkunde());
 		assertFalse(steffen.istStammkunde());
 	}
 
-	@After
-	public void tearDown() {
-		this.persistenceService = null;
-		this.gastService = null;
-		this.reservierungService = null;
+	// gibt immer eine neue zimmerNr zurück
+	private int zimmerNr() {
+		zNr += 1;
+		return zNr;
 	}
-
 }
