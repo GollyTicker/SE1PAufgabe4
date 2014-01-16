@@ -1,6 +1,6 @@
 package Reservierungskomponente;
 
-import static Precondition.Precondition.assertArgument;
+import static Utilities.Precondition.assertArgument;
 import Services.IGastServicesFuerReservierung;
 import Services.IReservierungServices;
 

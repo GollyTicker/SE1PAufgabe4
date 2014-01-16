@@ -1,8 +1,11 @@
 package Gastkomponente;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import static Gastkomponente.GastTyp.gast;
 import Persistenz.IPersistenzService;
+import Utilities.TechnicalException;
 import static Gastkomponente.EmailTyp.emailConvertFromString;
 
 public class Gastverwalter {
@@ -13,19 +16,15 @@ public class Gastverwalter {
 		this.pServ = persServ;
 	}
 
-	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email) {
-		try {
-			String selectQuery = "insert into gast values(" + nr + ", '" + name
-					+ "', '" + email.toString() + "', false)";
-			pServ.create(selectQuery);
-			return sucheGastNachName(name);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email)
+			throws TechnicalException {
+		String selectQuery = "insert into gast values(" + nr + ", '" + name
+				+ "', '" + email.toString() + "', false)";
+		pServ.create(selectQuery);
+		return sucheGastNachName(name);
 	}
 
-	public GastTyp sucheGastNachName(String name) {
+	public GastTyp sucheGastNachName(String name) throws TechnicalException {
 		ResultSet res = pServ.readByStrAttribute(name, "gast", "name");
 		try {
 			while (res.next()) {
@@ -35,13 +34,14 @@ public class Gastverwalter {
 				Boolean istStammK = res.getBoolean("IstStammkunde");
 				return gast(nr, name2, emailConvertFromString(email), istStammK);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			throw new TechnicalException();
 		}
 		return null;
 	}
 
-	public void markiereGastStammkundeFallsBedingungenErfuellt(int gastNr) {
+	public void markiereGastStammkundeFallsBedingungenErfuellt(int gastNr)
+			throws TechnicalException {
 
 		String reservierungenQuery = "select count(distinct res.Nr) as reservierung"
 				+ " from ( select gastID, Nr from reservierung where gastID="
@@ -70,8 +70,8 @@ public class Gastverwalter {
 					pServ.updateByRawQuery(queryIfStammkunde);
 				}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			throw new TechnicalException();
 		}
 	}
 
