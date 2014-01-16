@@ -11,13 +11,17 @@ public class DatabaseConnection implements IPersistenzService {
 
 	private Connection connect = null;
 	private String user = "myuser";
+	private String dbName = "test";	
+	private String password = "";
+	
 
 	public DatabaseConnection() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			this.connect = DriverManager
-					.getConnection("jdbc:mysql://localhost/test?" + "user="
-							+ user + "&password=");
+					.getConnection("jdbc:mysql://localhost/" + dbName
+							+ "?" + "user="
+							+ user + "&password=" + password);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
