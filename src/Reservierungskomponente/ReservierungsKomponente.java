@@ -1,8 +1,8 @@
 package Reservierungskomponente;
 
+import Gastkomponente.IGastServicesFuerReservierung;
 import Persistenz.IPersistenzService;
-import Services.IGastServicesFuerReservierung;
-import Services.IReservierungServices;
+import Utilities.TechnicalException;
 
 public class ReservierungsKomponente implements IReservierungServices {
 
@@ -17,23 +17,26 @@ public class ReservierungsKomponente implements IReservierungServices {
 	}
 
 	@Override
-	public ZusatzleistungTyp erzeugeZusatzleistung(String name) {
+	public ZusatzleistungTyp erzeugeZusatzleistung(String name)
+			throws TechnicalException {
 		return this.resVerwAf.erzeugeZusatzleistung(name);
 	}
 
 	@Override
-	public ReservierungTyp reserviereZimmer(Integer gastNr, Integer zimmerNr) {
+	public ReservierungTyp reserviereZimmer(Integer gastNr, Integer zimmerNr)
+			throws TechnicalException {
 		return this.resVerwAf.reserviereZimmer(gastNr, zimmerNr);
 	}
 
 	@Override
 	public void bucheZusatzleistung(Integer reservierungNr,
-			Integer zusatzleistungNr) {
+			Integer zusatzleistungNr) throws TechnicalException {
 		this.resVerwAf.bucheZusatzleistung(reservierungNr, zusatzleistungNr);
 	}
 
 	@Override
-	public Integer sucheGastNrNachReservierungNr(Integer reservierungNr) {
+	public Integer sucheGastNrNachReservierungNr(Integer reservierungNr)
+			throws TechnicalException {
 		return this.resVerwAf.sucheGastNrNachReservierungNr(reservierungNr);
 	}
 

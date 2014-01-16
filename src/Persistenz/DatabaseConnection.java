@@ -7,68 +7,70 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import Utilities.TechnicalException;
+import static Utilities.TechnicalException.throwNewTechnicalException;
+
 public class DatabaseConnection implements IPersistenzService {
 
 	private Connection connect = null;
 	private String user = "myuser";
-	private String dbName = "test";	
+	private String dbName = "test";
 	private String password = "";
-	
 
-	public DatabaseConnection() {
+	public DatabaseConnection() throws TechnicalException {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			this.connect = DriverManager
-					.getConnection("jdbc:mysql://localhost/" + dbName
-							+ "?" + "user="
-							+ user + "&password=" + password);
+					.getConnection("jdbc:mysql://localhost/" + dbName + "?"
+							+ "user=" + user + "&password=" + password);
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			throwNewTechnicalException();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throwNewTechnicalException();
 		}
 	}
 
-	public void create(String query) {
+	public void create(String query) throws TechnicalException {
 		try {
 			PreparedStatement preparedStatement = connect
 					.prepareStatement(query);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throwNewTechnicalException();
 		}
 	}
 
-	public ResultSet readByStrAttribute(String value, String table, String attr) {
+	public ResultSet readByStrAttribute(String value, String table, String attr)
+			throws TechnicalException {
 		try {
 			Statement statement = connect.createStatement();
 			String query = "select * from " + table + " where " + attr + " = "
 					+ "'" + value + "'";
 			return statement.executeQuery(query);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throwNewTechnicalException();
 		}
 		return null;
 	}
 
-	public ResultSet readByRawQuery(String query) {
+	public ResultSet readByRawQuery(String query) throws TechnicalException {
 		try {
 			Statement statement = connect.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
 			return resultSet;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throwNewTechnicalException();
 		}
 		return null;
 	}
 
-	public void updateByRawQuery(String query) {
+	public void updateByRawQuery(String query) throws TechnicalException {
 		try {
 			PreparedStatement preparedStatement = connect
 					.prepareStatement(query);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throwNewTechnicalException();
 		}
 
 	}

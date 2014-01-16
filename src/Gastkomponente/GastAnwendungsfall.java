@@ -1,8 +1,7 @@
 package Gastkomponente;
 
 import static Utilities.Precondition.assertArgument;
-import Services.IGastServices;
-import Services.IGastServicesFuerReservierung;
+import Utilities.InvalidEmailException;
 import Utilities.TechnicalException;
 
 public class GastAnwendungsfall implements IGastServices,
@@ -16,7 +15,7 @@ public class GastAnwendungsfall implements IGastServices,
 
 	@Override
 	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email)
-			throws TechnicalException {
+			throws TechnicalException, InvalidEmailException {
 		assertArgument(email != null);
 		assertArgument(name != null && name.length() <= 30 && name.length() > 0);
 		assertArgument(nr != null && nr >= 0);
@@ -24,7 +23,8 @@ public class GastAnwendungsfall implements IGastServices,
 	}
 
 	@Override
-	public GastTyp sucheGastNachName(String name) throws TechnicalException {
+	public GastTyp sucheGastNachName(String name) throws TechnicalException,
+			InvalidEmailException {
 		assertArgument(name != null && name.length() > 0);
 		return gVerw.sucheGastNachName(name);
 	}

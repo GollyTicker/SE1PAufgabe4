@@ -1,8 +1,7 @@
 package Gastkomponente;
 
 import Persistenz.IPersistenzService;
-import Services.IGastServices;
-import Services.IGastServicesFuerReservierung;
+import Utilities.InvalidEmailException;
 import Utilities.TechnicalException;
 
 public class GastverwaltungKomponente implements IGastServices,
@@ -18,12 +17,13 @@ public class GastverwaltungKomponente implements IGastServices,
 
 	@Override
 	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email)
-			throws TechnicalException {
+			throws TechnicalException, InvalidEmailException {
 		return this.gastAnwf.erzeugeGast(nr, name, email);
 	}
 
 	@Override
-	public GastTyp sucheGastNachName(String name) throws TechnicalException {
+	public GastTyp sucheGastNachName(String name) throws TechnicalException,
+			InvalidEmailException {
 		return this.gastAnwf.sucheGastNachName(name);
 	}
 

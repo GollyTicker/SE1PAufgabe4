@@ -2,8 +2,9 @@ package Tests;
 
 import java.sql.ResultSet;
 
+import Gastkomponente.IGastServicesFuerReservierung;
 import Persistenz.IPersistenzService;
-import Services.IGastServicesFuerReservierung;
+import Utilities.TechnicalException;
 
 public class GastverwaltungKomponenteDummy implements
 		IGastServicesFuerReservierung {
@@ -15,7 +16,7 @@ public class GastverwaltungKomponenteDummy implements
 	}
 
 	@Override
-	public void markiereGastAlsStammkunden(Integer gastNr) {
+	public void markiereGastAlsStammkunden(Integer gastNr) throws TechnicalException {
 		String reservierungenQuery = "select count(distinct res.Nr) as reservierung"
 				+ " from ( select gastID, Nr from reservierung where gastID="
 				+ gastNr + " ) res;";

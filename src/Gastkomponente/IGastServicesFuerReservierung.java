@@ -1,4 +1,4 @@
-package Services;
+package Gastkomponente;
 
 import Utilities.TechnicalException;
 

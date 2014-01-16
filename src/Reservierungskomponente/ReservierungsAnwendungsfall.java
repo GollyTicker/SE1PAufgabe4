@@ -1,8 +1,8 @@
 package Reservierungskomponente;
 
 import static Utilities.Precondition.assertArgument;
-import Services.IGastServicesFuerReservierung;
-import Services.IReservierungServices;
+import Utilities.TechnicalException;
+import Gastkomponente.IGastServicesFuerReservierung;
 
 public class ReservierungsAnwendungsfall implements IReservierungServices {
 
@@ -16,13 +16,15 @@ public class ReservierungsAnwendungsfall implements IReservierungServices {
 	}
 
 	@Override
-	public ZusatzleistungTyp erzeugeZusatzleistung(String name) {
+	public ZusatzleistungTyp erzeugeZusatzleistung(String name)
+			throws TechnicalException {
 		assertArgument(name != null && name.length() > 0);
 		return this.resVerw.erzeugeZusatzleistung(name);
 	}
 
 	@Override
-	public ReservierungTyp reserviereZimmer(Integer gastNr, Integer zimmerNr) {
+	public ReservierungTyp reserviereZimmer(Integer gastNr, Integer zimmerNr)
+			throws TechnicalException {
 		assertArgument(gastNr != null && gastNr > 0);
 		assertArgument(zimmerNr != null);
 		ReservierungTyp result = resVerw.reserviereZimmer(gastNr, zimmerNr);
@@ -32,7 +34,7 @@ public class ReservierungsAnwendungsfall implements IReservierungServices {
 
 	@Override
 	public void bucheZusatzleistung(Integer reservierungNr,
-			Integer zusatzleistungNr) {
+			Integer zusatzleistungNr) throws TechnicalException {
 		assertArgument(zusatzleistungNr != null && zusatzleistungNr > 0);
 		assertArgument(reservierungNr != null && reservierungNr > 0);
 		Integer gastNr = resVerw.sucheGastNrNachReservierungNr(reservierungNr);
@@ -41,7 +43,8 @@ public class ReservierungsAnwendungsfall implements IReservierungServices {
 	}
 
 	@Override
-	public Integer sucheGastNrNachReservierungNr(Integer reservierungNr) {
+	public Integer sucheGastNrNachReservierungNr(Integer reservierungNr)
+			throws TechnicalException {
 		return this.resVerw.sucheGastNrNachReservierungNr(reservierungNr);
 	}
 

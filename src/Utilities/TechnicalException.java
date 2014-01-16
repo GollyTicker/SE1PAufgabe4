@@ -1,12 +1,23 @@
 package Utilities;
 
-import java.sql.SQLException;
-
-public class TechnicalException extends SQLException {
+public class TechnicalException extends Exception {
 
 	private static final long serialVersionUID = -5390201238009020791L;
 
-	public TechnicalException() {
+	private TechnicalException() {
 		super();
+	}
+
+	private TechnicalException(String errMsg) {
+		super("Technical Exception");
+	}
+
+	public static void throwNewTechnicalException() throws TechnicalException {
+		throw new TechnicalException();
+	}
+
+	public static void throwNewTechnicalException(String errMsg)
+			throws TechnicalException {
+		throw new TechnicalException(errMsg);
 	}
 }

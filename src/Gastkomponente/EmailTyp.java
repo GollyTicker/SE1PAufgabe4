@@ -1,6 +1,7 @@
 package Gastkomponente;
 
-import java.lang.IllegalArgumentException;
+import static Utilities.InvalidEmailException.throwNewInvalidEmailException;
+import Utilities.InvalidEmailException;
 
 public final class EmailTyp {
 
@@ -8,14 +9,14 @@ public final class EmailTyp {
 	private String server;
 	private String country;
 
-	private EmailTyp(String name, String server, String country) {
+	private EmailTyp(String name, String server, String country) throws InvalidEmailException {
 		assertValidEmail(name, server, country);
 		this.name = name;
 		this.server = server;
 		this.country = country;
 	}
 
-	public static EmailTyp email(String name, String server, String country) {
+	public static EmailTyp email(String name, String server, String country) throws InvalidEmailException {
 		return new EmailTyp(name, server, country);
 	}
 
@@ -31,13 +32,9 @@ public final class EmailTyp {
 		return this.country;
 	}
 
-	private void assertValidEmail(String name, String server, String country) {
-		try {
+	private void assertValidEmail(String name, String server, String country) throws InvalidEmailException {
 			if (!validEmail(name, server, country))
-				throw new IllegalArgumentException("invalid email");
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		}
+				throwNewInvalidEmailException();
 	}
 
 	private boolean validEmail(String name, String server, String country) {
@@ -47,8 +44,8 @@ public final class EmailTyp {
 		}
 		return false;
 	}
-	
-	public static EmailTyp emailConvertFromString(String plain) {
+
+	public static EmailTyp emailConvertFromString(String plain) throws InvalidEmailException {
 		String[] s = plain.split("(@|\\.)");
 		String name = s[0];
 		String server = s[1];

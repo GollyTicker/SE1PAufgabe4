@@ -5,7 +5,9 @@ import java.sql.SQLException;
 
 import static Gastkomponente.GastTyp.gast;
 import Persistenz.IPersistenzService;
+import Utilities.InvalidEmailException;
 import Utilities.TechnicalException;
+import static Utilities.TechnicalException.throwNewTechnicalException;
 import static Gastkomponente.EmailTyp.emailConvertFromString;
 
 public class Gastverwalter {
@@ -17,14 +19,14 @@ public class Gastverwalter {
 	}
 
 	public GastTyp erzeugeGast(Integer nr, String name, EmailTyp email)
-			throws TechnicalException {
+			throws TechnicalException, InvalidEmailException {
 		String selectQuery = "insert into gast values(" + nr + ", '" + name
 				+ "', '" + email.toString() + "', false)";
 		pServ.create(selectQuery);
 		return sucheGastNachName(name);
 	}
 
-	public GastTyp sucheGastNachName(String name) throws TechnicalException {
+	public GastTyp sucheGastNachName(String name) throws TechnicalException, InvalidEmailException {
 		ResultSet res = pServ.readByStrAttribute(name, "gast", "name");
 		try {
 			while (res.next()) {
@@ -35,7 +37,7 @@ public class Gastverwalter {
 				return gast(nr, name2, emailConvertFromString(email), istStammK);
 			}
 		} catch (SQLException e) {
-			throw new TechnicalException();
+			throwNewTechnicalException();
 		}
 		return null;
 	}
@@ -71,7 +73,7 @@ public class Gastverwalter {
 				}
 			}
 		} catch (SQLException e) {
-			throw new TechnicalException();
+			throwNewTechnicalException();
 		}
 	}
 
