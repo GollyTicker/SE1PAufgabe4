@@ -11,7 +11,7 @@ import Gastkomponente.GastTyp;
 import Reservierungskomponente.ReservierungTyp;
 import Reservierungskomponente.ZusatzleistungTyp;
 
-public class BlackBoxTestHotelFassade {
+public class IntegrationTest {
 
 	private IHotelFassade hotelFassade;
 	private int zNr;
@@ -32,7 +32,7 @@ public class BlackBoxTestHotelFassade {
 	}
 
 	@Test
-	public void testBlackBoxHotel() {
+	public void testIntegration() {
 		try {
 			GastTyp steffen = hotelFassade.sucheGastNachName("Steffen");
 			GastTyp swaneet = hotelFassade.sucheGastNachName("Swaneet");
