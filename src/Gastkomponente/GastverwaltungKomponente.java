@@ -10,8 +10,8 @@ public class GastverwaltungKomponente implements IGastServices,
 	private Gastverwalter gVerw = null;
 	private GastAnwendungsfall gastAnwf = null;
 
-	public GastverwaltungKomponente(IPersistenzService persistenceManager) {
-		gVerw = new Gastverwalter(persistenceManager);
+	public GastverwaltungKomponente(IPersistenzService pServ) {
+		gVerw = new Gastverwalter(pServ);
 		gastAnwf = new GastAnwendungsfall(gVerw);
 	}
 
