@@ -1,6 +1,6 @@
 
 -- Zum starten der Datenbank.
--- CMD mit Adminrechten ausführen und "startmsql" "tun".
+-- CMD mit Adminrechten ausführen und "startmysql" tun.
 -- beenden des Servers mit "stopmysql".
 
 drop table if exists umfasst;
